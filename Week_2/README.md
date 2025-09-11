@@ -27,10 +27,6 @@ Memahami Dart sangat penting karena Flutter sepenuhnya dibangun menggunakan baha
 <br>
 
 ### **Jawaban Soal 3**
-Berdasarkan materi dari codelab, berikut rangkuman poin-poin penting Dart untuk pengembangan aplikasi Flutter:
-
----
-
 ### **1. Keunggulan Dart**
 - **Productive tooling**: Didukung alat analisis kode, plugin IDE, dan ekosistem paket yang besar.
 - **Garbage collection**: Mengelola memori secara otomatis (objek tidak terpakai dihapus).
