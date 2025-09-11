@@ -50,5 +50,61 @@ if (test) {
 }
 ~~~
 
+**Output:** 
+
+![image](img/Langkah3Prak1.png)
+
 ## **Praktikum 2**
 ### **Langkah 1**
+**Kode sebelum diperbaiki**
+~~~dart
+void main(List<String> args) {
+  while (counter < 7) {
+    print(counter);
+    counter++;
+  }
+}
+~~~
+
+## **Langkah 2**
+**Output**
+
+![image](img/Langkah1Prak2.png)
+**Penjelasan:**
+Akan terjadi error saat menjalankan program karena variabel "counter" belum dideklarasikan, sehingga komputer tidak bisa menemukan variabel counter.
+
+**Kode setelah saya benahi**
+~~~Dart
+void main(List<String> args) {
+  int counter = 7;
+  while (counter < 12) {
+    print(counter);
+    counter++;
+  }
+}
+~~~
+
+**Output**
+![image](img/Langkah1Prak2-success.png)
+
+## **Langkah 3**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  //Langkah 1
+  int counter = 7;
+  while (counter < 12) {
+    print(counter);
+    counter++;
+  }
+
+  //Langkah 3
+  do {
+    print(counter);
+    counter++;
+  } while (counter < 15);
+}
+~~~
+
+**Output:**
+![image](img/Langkah3Prak2.png)
