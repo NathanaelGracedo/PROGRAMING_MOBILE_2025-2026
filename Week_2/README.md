@@ -2,7 +2,7 @@
 
 **Identitas Mahasiswa:**
 
-| Nama | Kelas | NIM |
+| Nama | Kelas | Absen|
 |------|-------|-----|
 | Nathanael Juan Gracedo | TI-3H | 24 |
 

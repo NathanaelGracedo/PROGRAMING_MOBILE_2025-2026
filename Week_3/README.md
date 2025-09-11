@@ -1,12 +1,12 @@
-# Laporan Praktikum Week 2
+# **Laporan Praktikum Week 3**
 
 **Identitas Mahasiswa:**
 
-| Nama | Kelas | NIM |
+| Nama | Kelas | Absen |
 |------|-------|-----|
 | Nathanael Juan Gracedo | TI-3H | 24 |
 
-## **Praktikum 1**
+## **Praktikum 1: Menerapkan Control Flows ("if/else")**
 ### **Langkah 1**
 **Kode Program:**
 ~~~Dart
@@ -28,9 +28,9 @@ void main(List<String> args) {
 
 
 ### **Langkah 2**
-**Output dari praktikum 1:**
+**Output dari Langkah 1:**
 **Output:** 
-![image](img/Langkah1Prak1.png)
+![image](img/Prak1Langkah1.png)
 **Penjelasan:**
 Output print test bernilai "test2". Karena kondisi else if pertama dan kondisi if kedua keduanya bernilai benar. Akibatnya, program akan menjalankan kedua perintah print dan menghasilkan output "Test2" diikuti "Test2 again".
 
@@ -52,9 +52,9 @@ if (test) {
 
 **Output:** 
 
-![image](img/Langkah3Prak1.png)
+![image](img/Prak1Langkah3.png)
 
-## **Praktikum 2**
+## **Praktikum 2: Menerapkan Perulangan "while" dan "do-while"**
 ### **Langkah 1**
 **Kode sebelum diperbaiki**
 ~~~dart
@@ -66,10 +66,10 @@ void main(List<String> args) {
 }
 ~~~
 
-## **Langkah 2**
+### **Langkah 2**
 **Output**
 
-![image](img/Langkah1Prak2.png)
+![image](img/Prak2Langkah1.png)
 **Penjelasan:**
 Akan terjadi error saat menjalankan program karena variabel "counter" belum dideklarasikan, sehingga komputer tidak bisa menemukan variabel counter.
 
@@ -85,9 +85,9 @@ void main(List<String> args) {
 ~~~
 
 **Output**
-![image](img/Langkah1Prak2-success.png)
+![image](img/Prak2-successLangkah1.png)
 
-## **Langkah 3**
+### **Langkah 3**
 **Kode Program:**
 ~~~Dart
 void main(List<String> args) {
@@ -107,4 +107,59 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
-![image](img/Langkah3Prak2.png)
+![image](img/Prak2Langkah3.png)
+
+## **Praktikum 3: Menerapkan Perulangan "for" dan "break-continue"**
+### **Langkah 1**
+**Kode program**
+~~~Dart
+void main(List<String> args) {
+  for (Index = 10; index < 27; index) {
+    print(Index);
+  }
+}
+~~~
+
+### **Langkah 2**
+**Output pada kode langkah 1:**
+![image](img/Prak3-errorLangkah1.png)
+**Penjelasan:**
+Akan terjadi error saat program dijalankan karena variable index tidak konsisten pengetikannya, ada "Index" dan "index".  
+
+**Kode setelah saya perbaiki:**
+~~~Dart
+void main(List<String> args) {
+  for (int Index = 10; Index < 27; Index) {
+    print(Index);
+  }
+}
+~~~
+
+### **Langkah 3**
+**Kode program error**
+~~~Dart
+If (Index == 21) break;
+Else If (index > 1 || index < 7) continue;
+print(index);
+~~~
+**Penjelasan:** Kode error karena struktur syntax yang tidak sesuai, dan penamaan variable index yang tidak sesuai.
+
+**Kode program setelah saya benahi**
+~~~Dart
+void main(List<String> args) {
+  //Langkah 1
+  for (int Index = 10; Index < 27; Index++) {
+    print(Index);
+    //Langkah 3
+    if (Index == 21)
+      break;
+    else if (Index > 1 || Index < 7)
+      continue;
+    print(Index);
+  }
+}
+~~~
+
+**Output**
+![image](img/Prak3Langkah3.png)
+
