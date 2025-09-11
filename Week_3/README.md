@@ -163,3 +163,33 @@ void main(List<String> args) {
 **Output**
 ![image](img/Prak3Langkah3.png)
 
+## Tugas Praktikum
+Buatlah sebuah program yang dapat menampilkan bilangan prima dari angka 0 sampai 201 menggunakan Dart. Ketika bilangan prima ditemukan, maka tampilkan nama lengkap dan NIM Anda
+
+**Kode Program:**
+~~~Dart
+void main() {
+  for (int i = 0; i <= 201; i++) {
+    if (isPrime(i)) {
+      print("$i adalah bilangan prima");
+      print("Nathanael Juan Gracedo");
+      print("2341720217");
+    } else {
+      print("$i bukan bilangan prima");
+    }
+  }
+}
+
+bool isPrime(int num) {
+  if (num < 2) return false;
+  for (int i = 2; i <= num ~/ 2; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+  return true;
+}
+~~~
+
+**Output:**
+![alt text](img/TugasPraktikum.png)
