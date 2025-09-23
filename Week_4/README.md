@@ -50,3 +50,57 @@ void main(List<String> args) {
 **Output:**
 ![img](img/Prak1Lang3.png)
 **Deskripsi:** Program akan menampilkan list indeks ke-1 yaitu "Nathanael Juan Gracedo" dan indeks ke-2 yaitu "2341720217".
+
+## **Praktikum 2: Eksperimen Tipe Data Set**
+### **Langkah 1**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var halogens = {'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'};
+  print(halogens);
+}
+~~~
+
+### **Langkah 2**
+**Output**
+![img](img/Prak2Lang1.png)
+**Deskripsi:** Output yang muncul saat program dijalankan adalah string data set yaitu "{'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'}"
+
+## **Langkah 3**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var names1 = <String>{};
+  Set<String> names2 = {};
+  var names3 = {};
+
+  print(names1);
+  print(names2);
+  print(names3);
+}
+~~~
+
+**Output:**
+![img](img/Prak2Lang3.png)
+**Deskripsi:** Program tidak mengalami error namun hanya menampilkan object kosong atau null.
+
+**Kode setelah saya ubah:**
+~~~Dart
+void main(List<String> args) {
+  var names1 = <String>{};
+  Set<String> names2 = {};
+  var names3 = {};
+
+  names1.add('Nathanael Juan Gracedo');
+  names1.add('2341720217');
+
+  names2.addAll(['Nathanael Juan Gracedo', '2341720217']);
+
+  print(names1);
+  print(names2);
+  print(names3);
+}
+~~~
+
+**Output:**
+![img](img/Prak2Lang3Modify.png)
