@@ -1,0 +1,52 @@
+# **Laporan Praktikum Week 4**
+
+**Identitas Mahasiswa:**
+
+| Nama | Kelas | Absen |
+|------|-------|-----|
+| Nathanael Juan Gracedo | TI-3H | 24 |
+
+## **Praktikum 1: Eksperimen Tipe Data List**
+### **Langkah 1**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  assert(list.length == 3);
+  assert(list[1] == 2);
+  print(list.length);
+  print(list[1]);
+
+  list[1] = 1;
+  assert(list[1] == 1);
+  print(list[1]);
+}
+~~~
+
+### **Langkah 2**
+**Output:**
+![img](img/Prak1Lang1.png)
+**Deskripsi**: Setelah di jalankan program akan menginisialisasi sebuah list dengan tiga angga: 1, 2, dan 3. Program awalnya hanya mencetak panjang list yaitu 3 dan nilai pada indeks ke-1 yaitu 2. Kemudian nilai pada indeks ke-1 diubah menjadi 1. Terakhir, program akan mencetak kembali nilai pada indeks ke-1 yang sudah diperbarui, sehingga output terakhirnya adalah 1. Perintah 'assert' digunakan untuk memverifikasi kondisi. 
+
+### **Langkah 3**
+Mengubah kode pada langkah 1 menjadi variabel final yang mempunyai index = 5 dengan default value = null. Mengisi dengan nama dan NIM saya pada elemen index ke-1 dan ke-2. Lalu print dan capture hasilnya.
+
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  final list = List<Object?>.filled(5, null);
+  list[1] = 'Nathanael Juan Gracedo';
+  list[2] = '2341720217';
+
+  assert(list.length == 5);
+  assert(list[1] == 'Nathanael Juan Gracedo');
+  assert(list[2] == '2341720217');
+
+  print(list[1]);
+  print(list[2]);
+}
+~~~
+
+**Output:**
+![img](img/Prak1Lang3.png)
+**Deskripsi:** Program akan menampilkan list indeks ke-1 yaitu "Nathanael Juan Gracedo" dan indeks ke-2 yaitu "2341720217".
