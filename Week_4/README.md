@@ -104,3 +104,68 @@ void main(List<String> args) {
 
 **Output:**
 ![img](img/Prak2Lang3Modify.png)
+
+## **Praktikum 3: Eksperimen Tipe Data Maps**
+### **Langkah 1**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var gifts = {
+    // Key: Value
+    'first': 'partridge',
+    'second': 'turtledoves',
+    'fifth': 1,
+  };
+
+  var nobleGases = {
+    2: 'helium',
+    10: 'neon',
+    18: 2,
+  };
+
+  print(gifts);
+  print(nobleGases);
+}
+~~~
+
+### **Langkah 2**
+**Output:**
+![img](img/Prak3Lang2.png)
+**Deskripsi:** Program akan memunculkan output dari var gifts dan var nobleGases.
+
+### **Langkah 3**
+**Kode Program**
+~~~Dart
+void main(List<String> args) {
+  var gifts = {
+    'first': 'partridge',
+    'second': 'turtledoves',
+    'fifth': 'golden rings',
+  };
+
+  var nobleGases = {2: 'helium', 10: 'neon', 18: 'argon'};
+
+  var mhs1 = Map<String, String>();
+  gifts['nama'] = 'Nathanael Juan Gracedo';
+  gifts['nim'] = '2341720217';
+
+  var mhs2 = Map<int, String>();
+  nobleGases[1] = 'Nathanael Juan Gracedo';
+  nobleGases[3] = '2341720217';
+
+  mhs1['nama'] = 'Nathanael Juan Gracedo';
+  mhs1['nim'] = '2341720217';
+
+  mhs2[1] = 'Nathanael Juan Gracedo';
+  mhs2[3] = '2341720217';
+
+  print(gifts);
+  print(nobleGases);
+  print(mhs1);
+  print(mhs2);
+}
+~~~
+
+**Output:**
+![img](img/Prak3Lang3.png)
+**Deskripsi:** Saya sudah menambahkan nama dan NIM saya pada var gifts, nobleGases, mhs1, dan mhs2. Program akan memunculkan isi dari masing masing variable yang sudah di deklarasikan.
