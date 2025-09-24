@@ -604,3 +604,236 @@ void main(List<String> args) {
 
 **Output:**
 ![img](img/Prak5Lang5.png)
+
+## **Tugas Praktikum**
+### 2. Jelaskan yang dimaksud Functions dalam bahasa Dart!
+**Jawab:** Dalam bahasa Dart, sebuah function adalah blok kode yang dapat digunakan kembali untuk melakukan tugas tertentu. Fungsi diberi nama, bisa menerima masukan data melalui parameter, dan dapat mengembalikan sebuah nilai sebagai hasil eksekusinya. Tujuan utama penggunaan fungsi adalah untuk memecah program besar menjadi bagian-bagian yang lebih kecil dan terkelola, menghindari penulisan kode yang berulang, dan membuat alur program lebih mudah dibaca.
+
+### 3. Jelaskan jenis-jenis parameter di Functions beserta contoh sintaksnya!
+**Jawab:**
+- **Parameter Posisional:** parameter standar yang nilainya harus diberikan sesuai dengan urutan posisinya saat fungsi dipanggil.
+
+**Contoh penggunakan Parameter Posisional:**
+~~~Dart
+//Parameter Posisional (Positional Parameters)
+void perkenalan(String nama, int umur) {
+  print('Halo, nama saya $nama, umur saya $umur tahun.');
+}
+
+void main(List<String> args) {
+  perkenalan('Nathan', 21); 
+}
+~~~
+
+**Output:**
+![img](img/ParameterPosisional.png)
+
+- **Parameter Bernama (Named Parameters):** Parameter ini bersifat opsional (kecuali ditandai required) dan diidentifikasi berdasarkan namanya, bukan posisinya. Mereka didefinisikan di dalam kurung kurawal {}.
+
+**Contoh penggunaan paramter bernama:**
+~~~Dart
+void cetakInfo({String? nama, int? umur}) {
+  print('Nama: ${nama ?? 'Tidak diketahui'}, Umur: ${umur ?? 0}');
+}
+
+void main(List<String> args) {
+  cetakInfo(umur: 99, nama: 'Juan');
+  cetakInfo(nama: 'Nael');
+  cetakInfo(); // Boleh tidak diisi
+}
+~~~
+
+**Output:**
+![img](img/ParameterBernama.png)
+
+- **Parameter Bernama yang Wajib Diisi (Required Named Parameters):** Ini adalah parameter bernama yang harus diisi saat fungsi dipanggil. Kita menggunakan kata kunci required.
+
+**Contoh penggunaan Required Named Parameters:**
+~~~Dart
+void buatProfil({required String nama, required int umur}) {
+  print('Profil dibuat untuk $nama ($umur tahun).');
+}
+
+void main(List<String> args) {
+  buatProfil(nama: 'Nathanael', umur: 345);
+  // buatProfil(nama: 'Nathanael'); // Ini akan error karena 'umur' wajib diisi.
+}
+~~~
+
+**Output jika semua variable diisi:**
+![img](img/RequiredNamedParamter-success.png)
+
+**Output jika salah satu variable tidak diisi:**
+![img](img/RequiredNamedParameter-error.png)
+
+- **Parameter Posisional Opsional (Optional Positional Parameters):** Parameter ini bersifat opsional dan didefinisikan di dalam kurung siku []. Posisinya tetap penting jika diisi.
+
+**Contoh penggunaan Optional Positional Paramters:**
+~~~Dart 
+// Parameter Opsional (Optional Parameters)
+// 'perangkat' adalah parameter posisional opsional.
+void login(String username, String password, [String? perangkat]) {
+  var infoPerangkat = perangkat ?? 'Web';
+  print('$username login dari $infoPerangkat.');
+}
+
+void main(List<String> args) {
+  login('Gracedo', '123'); // 'perangkat' tidak diisi, akan menggunakan nilai default null.
+  login('Gracedo', '123', 'Mobile'); // 'perangkat' diisi.
+}
+~~~
+
+**Output:**
+![img](img/OptionalPositionalParamter.png)
+
+### 4. Jelaskan maksud Functions sebagai first-class objects beserta contoh sintaknya!
+**Jawab:**
+Maksud dari functions sebagai first-class objects adalah bahwa di Dart, fungsi diperlakukan sama seperti objek lainnya, misalnya seperti String atau int. Ini berarti fungsi dapat:
+
+- Disimpan dalam sebuah variabel.
+
+**Contoh Penerapan:**
+~~~Dart
+void sapa(String nama) {
+  print('Halo, $nama!');
+}
+
+void main() {
+  // Fungsi 'sapa' disimpan dalam variabel 'ucapan'
+  var ucapan = sapa;
+  ucapan('Juan Gracedo'); 
+}
+~~~
+
+**Output:**
+![img](img/Tugas4-1.png)
+
+- Diberikan sebagai argumen (parameter) ke fungsi lain.
+
+**Contoh Penerapan:**
+~~~Dart
+// Fungsi 'operasi' adalah parameter
+void hitung(int a, int b, Function(int, int) operasi) {
+  var hasil = operasi(a, b);
+  print('Hasilnya adalah: $hasil');
+}
+
+int tambah(int a, int b) {
+  return a + b;
+}
+
+int kurang(int a, int b) {
+  return a - b;
+}
+
+void main() {
+   // Memberikan fungsi 'tambah' sebagai argumen
+  hitung(10, 5, tambah); 
+
+  // Memberikan fungsi 'kurang' sebagai argumen
+  hitung(10, 5, kurang); 
+}
+~~~
+
+**Output:**
+![img](img/Tugas4-2.png)
+
+- Dikembalikan sebagai hasil dari fungsi lain.
+
+**Contoh Penerapan:**
+~~~Dart
+Function buatPengali(int pengali) {
+  // Ini adalah fungsi yang dikembalikan (anonymous function)
+  return (int angka) => angka * pengali;
+}
+
+void main() {
+   // 'kaliDua' sekarang adalah sebuah fungsi yang akan mengalikan dengan 2
+  var kaliDua = buatPengali(2);
+
+  // 'kaliTiga' adalah fungsi yang akan mengalikan dengan 3
+  var kaliTiga = buatPengali(3);
+
+  print(kaliDua(10)); 
+  print(kaliTiga(10)); 
+}
+~~~
+
+**Output:**
+![img](img/Tugas4-3.png)
+
+### 5. Apa itu Anonymous Functions? 
+**Jawab:** Anonymous function adalah sebuah fungsi yang tidak memiliki nama. Fungsi ini sering disebut juga sebagai lambda atau closure. Kegunaan utamanya adalah untuk membuat fungsi "sekali pakai" yang ringkas, biasanya untuk diberikan sebagai argumen ke fungsi lain (seperti dalam metode forEach atau map pada sebuah List). Karena tidak memiliki nama, fungsi ini didefinisikan langsung di tempat ia akan digunakan, membuat kode lebih pendek dan fokus pada tujuannya.
+
+**Contoh Penerapan:**
+~~~Dart
+void main() {
+  var angka = [1, 2, 3, 4];
+  // (item) { ... } adalah fungsi tanpa nama.
+  angka.forEach((item) {
+    print('Angka: $item');
+  });
+
+  // Contoh lain dengan sintaks panah (=>) yang lebih ringkas
+  var kuadrat = angka.map((item) => item * item);
+  print('Hasil kuadrat: $kuadrat'); 
+}
+~~~
+
+**Output:**
+![img](img/Tugas5.png)
+
+### 6. Jelaskan perbedaan Lexical scope dan Lexical closures! Berikan contohnya!
+**Jawab:** 
+- **Lexical scope** adalah aturan di mana jangkauan (scope) sebuah variabel ditentukan oleh lokasinya di dalam kode. Artinya, sebuah fungsi yang berada di dalam fungsi lain (inner function) dapat mengakses variabel yang ada di fungsi luarnya (parent function). Sederhananya, ini adalah tentang "di mana" sebuah variabel bisa terlihat dan diakses berdasarkan struktur blok kode {}.
+
+- **Lexical closure**, di sisi lain, adalah sebuah fungsi yang "mengingat" variabel-variabel dari lingkungan tempat ia dibuat (lexical scope-nya), bahkan ketika fungsi tersebut dieksekusi di luar lingkungannya. Sebuah closure adalah objek fungsi yang "menutup" atau membawa serta variabel-variabel dari scope induknya.
+
+**Contoh Penerapan:**
+~~~Dart
+// Fungsi ini mendemonstrasikan Lexical Closure
+Function buatSalam(String salam) {
+  String namaPanggilan = "Tuan";
+
+  // Ini adalah closure (fungsi anonim yang dikembalikan).
+  // Dia "mengingat" variabel 'salam' dan 'namaPanggilan' dari scope 'buatSalam'.
+  return (String nama) {
+    // Di sini, 'salam' dan 'namaPanggilan' diakses karena Lexical Scope.
+    print('$salam, $namaPanggilan $nama!');
+  };
+}
+
+void main() {
+  // 'salamPagi' sekarang adalah sebuah closure.
+  // Dia masih memiliki akses ke variabel 'salam' ("Selamat Pagi")
+  // meskipun fungsi 'buatSalam' sudah selesai dieksekusi.
+  var salamPagi = buatSalam("Selamat Berjuang");
+
+  // Memanggil closure tersebut.
+  salamPagi("Nathanael"); // Output: Selamat Pagi, Sobat Budi!
+}
+~~~
+
+**Output:**
+![img](img/Tugas6.png)
+
+### 7. Jelaskan dengan contoh cara membuat return multiple value di Functions!
+**Jawab:**
+~~~Dart
+// Fungsi untuk mengembalikan sebuah Record (String, int)
+(String, int) getUserInfo() {
+  String nama = "Nathanael Juan Gracedo";
+  int umur = 21;
+  return (nama, umur);
+}
+
+void main() {
+  var infoPengguna = getUserInfo();
+
+  print('Nama: ${infoPengguna.$1}');
+  print('Umur: ${infoPengguna.$2}');  
+}
+~~~
+
+**Output:**
+![img](img/Tugas7.png)
