@@ -463,3 +463,144 @@ void main(List<String> args) {
 **Deskripsi:** Saat dijalankan program akan mencetak output ['#0', '#1', '#2', '#3'].  Ini terjadi karena collection for (for (var i in listOfInts) '#$i') melakukan iterasi pada setiap elemen di listOfInts (yaitu 1, 2, dan 3), mengubah setiap angka i menjadi string dengan format '#$i', lalu menambahkan hasilnya ke dalam listOfStrings setelah elemen '#0'. 
 
 **Manfaat collection 'for'**: menyederhanakan pembuatan koleksi seperti List atau Set dengan memungkinkan untuk membangunnya secara dinamis langsung di dalam deklarasinya.
+
+## **Praktikum 5: Eksperimen Tipe Data Records**
+### **Langkah 1**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var record = ('first', a: 2, b: true, 'last');
+  print(record);
+}
+~~~
+
+### **Langkah 2**
+**Output:**
+![img](img/Prak5Lang2.png)
+**Deskripsi:** print(record) hanya menampilkan seluruh isi dari struktur data tersebut ke konsol dalam format (field_posisi_1, field_posisi_2, nama_field_1: nilai, nama_field_2: nilai).
+
+### **Langkah 3**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var record = ('first', a: 2, b: true, 'last');
+  print(record);
+  
+  (int, int) tukar((int, int) record) {
+  var (a, b) = record;
+  return (b, a);
+}
+}
+~~~
+
+**Output:**
+![img](img/Prak5Lang3-error.png)
+**Deskripsi:** Output program tidak terjadi error, namun fungsi tukar belum digunakan dan diberlakukan dengan benar.
+
+**Kode setelah saya perbaiki:** 
+~~~Dart
+(int, int) tukar((int, int) record) {
+  var (a, b) = record;
+  return (b, a);
+}
+
+void main(List<String> args) {
+  var record = ('first', 'last', a: 2, b: true);
+  print('Record awal (string, bool, dll): $record\n');
+
+  var numbers = (10, 20);
+  print('Record numbers sebelum ditukar: $numbers');
+
+  var hasilTukar = tukar(numbers);
+  print('Record numbers setelah ditukar: $hasilTukar');
+}
+~~~
+
+**Output:**
+![img](img/Prak5Lang3-success.png)
+
+### **Langkah 4:**
+**Kode program:**
+~~~Dart
+(int, int) tukar((int, int) record) {
+  var (a, b) = record;
+  return (b, a);
+}
+
+void main(List<String> args) {
+  var record = ('first', 'last', a: 2, b: true);
+  print('Record awal (string, bool, dll): $record\n');
+
+  var numbers = (10, 20);
+  print('Record numbers sebelum ditukar: $numbers');
+
+  var hasilTukar = tukar(numbers);
+  print('Record numbers setelah ditukar: $hasilTukar');
+
+  // Record type annotation in a variable declaration:
+  (String, int) mahasiswa;
+  print(mahasiswa);
+}
+~~~
+
+**Output:**
+![img](img/Prak5Lang4-error.png)
+**Deskripsi:** Setelah kode dijalankan outputnya adalah error, dikarenakan variabel mahasiswa adalah null.
+
+**Kode setelah saya perbaiki:**
+~~~Dart
+(int, int) tukar((int, int) record) {
+  var (a, b) = record;
+  return (b, a);
+}
+
+void main(List<String> args) {
+  var record = ('first', 'last', a: 2, b: true);
+  print('Record awal (string, bool, dll): $record\n');
+
+  var numbers = (10, 20);
+  print('Record numbers sebelum ditukar: $numbers');
+
+  var hasilTukar = tukar(numbers);
+  print('Record numbers setelah ditukar: $hasilTukar');
+
+  (String, int) mahasiswa = ('Nathanael Juan Gracedo', 2341720217);
+  print(mahasiswa);
+}
+~~~
+
+**Output:**
+![img](img/Prak5Lang4-success.png)
+
+### **Langkah 5:**
+**Kode Program:**
+~~~Dart
+(int, int) tukar((int, int) record) {
+  var (a, b) = record;
+  return (b, a);
+}
+
+void main(List<String> args) {
+  var record = ('first', 'last', a: 2, b: true);
+  print('Record awal (string, bool, dll): $record\n');
+
+  var numbers = (10, 20);
+  print('Record numbers sebelum ditukar: $numbers');
+
+  var hasilTukar = tukar(numbers);
+  print('Record numbers setelah ditukar: $hasilTukar');
+
+  (String, int) mahasiswa = ('Nathanael Juan Gracedo', 2341720217);
+  print(mahasiswa);
+
+  var mahasiswa2 = ('Nathanael Juan Gracedo', '2341720217', a: 2, b: true);
+
+  print(mahasiswa2.$1); // Prints 'Nathanael Juan Gracedo'
+  print(mahasiswa2.a); // Prints 2
+  print(mahasiswa2.b); // Prints true
+  print(mahasiswa2.$2); // Prints '2341720217'
+}
+~~~
+
+**Output:**
+![img](img/Prak5Lang5.png)
