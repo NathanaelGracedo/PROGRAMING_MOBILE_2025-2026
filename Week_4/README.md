@@ -25,7 +25,9 @@ void main(List<String> args) {
 
 ### **Langkah 2**
 **Output:**
+
 ![img](img/Prak1Lang1.png)
+
 **Deskripsi**: Setelah di jalankan program akan menginisialisasi sebuah list dengan tiga angga: 1, 2, dan 3. Program awalnya hanya mencetak panjang list yaitu 3 dan nilai pada indeks ke-1 yaitu 2. Kemudian nilai pada indeks ke-1 diubah menjadi 1. Terakhir, program akan mencetak kembali nilai pada indeks ke-1 yang sudah diperbarui, sehingga output terakhirnya adalah 1. Perintah 'assert' digunakan untuk memverifikasi kondisi. 
 
 ### **Langkah 3**
@@ -48,7 +50,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak1Lang3.png)
+
 **Deskripsi:** Program akan menampilkan list indeks ke-1 yaitu "Nathanael Juan Gracedo" dan indeks ke-2 yaitu "2341720217".
 
 ## **Praktikum 2: Eksperimen Tipe Data Set**
@@ -63,7 +67,9 @@ void main(List<String> args) {
 
 ### **Langkah 2**
 **Output**
+
 ![img](img/Prak2Lang1.png)
+
 **Deskripsi:** Output yang muncul saat program dijalankan adalah string data set yaitu "{'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'}"
 
 ## **Langkah 3**
@@ -81,7 +87,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak2Lang3.png)
+
 **Deskripsi:** Program tidak mengalami error namun hanya menampilkan object kosong atau null.
 
 **Kode setelah saya ubah:**
@@ -103,6 +111,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak2Lang3Modify.png)
 
 ## **Praktikum 3: Eksperimen Tipe Data Maps**
@@ -130,7 +139,9 @@ void main(List<String> args) {
 
 ### **Langkah 2**
 **Output:**
+
 ![img](img/Prak3Lang2.png)
+
 **Deskripsi:** Program akan memunculkan output dari var gifts dan var nobleGases.
 
 ### **Langkah 3**
@@ -167,7 +178,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak3Lang3.png)
+
 **Deskripsi:** Saya sudah menambahkan nama dan NIM saya pada var gifts, nobleGases, mhs1, dan mhs2. Program akan memunculkan isi dari masing masing variable yang sudah di deklarasikan.
 
 ## **Praktikum 4: Eksperimen Tipe Data List: Spread dan Control-flow Operators**
@@ -185,7 +198,9 @@ void main(List<String> args) {
 
 ### **Langkah 2**
 **Output:**
+
 ![img](img/Prak4Lang2-error.png)
+
 **Deskripsi**: Saat kode di run terjadi error karena kode memanggil list1 yang dimana tidka di deklarasikan.
 
 **Kode setelah saya perbaiki:**
@@ -200,7 +215,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang2-success.png)
+
 **Deskripsi:** Kode mengeluarkan output list dan list2 kemudian 4 adalah jumlah indeks pada list2 yang dijumlahkan list.
 
 ### Langkah 3
@@ -221,7 +238,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang3-error.png)
+
 **Deskripsi:** Saat dijalankan program akan memunculkan output error karena list1 yang belum didefinisikan menggunkan var. 
 
 **Kode setelah saya behani dan saya tambahkan Spread operator:**
@@ -246,6 +265,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang3-success.png)
 
 
@@ -275,7 +295,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang4-error.png)
+
 **Deskripsi:** Program akan mengeluarkan output error karena promoActive belum di definisikan.
 
 **Kode setelah saya perbaiki:**
@@ -310,7 +332,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang4-success.png)
+
 **Deskripsi:** Jika promoActive adalah false, maka List nav akan berisi: ['Home', 'Furniture', 'Plants'].
 Jika promoActive adalah true, maka List nav akan berisi: ['Home', 'Furniture', 'Plants', 'Outlet'].
 
@@ -350,7 +374,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang5-error.png)
+
 **Deskripsi:** Kode akan mengeluarkan output error karena login belum di definisikan.
 
 **Kode setelah saya perbaiki:**
@@ -402,6 +428,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang5-success.png)
 
 ### **Langkah 6**
@@ -459,7 +486,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak4Lang6.png)
+
 **Deskripsi:** Saat dijalankan program akan mencetak output ['#0', '#1', '#2', '#3'].  Ini terjadi karena collection for (for (var i in listOfInts) '#$i') melakukan iterasi pada setiap elemen di listOfInts (yaitu 1, 2, dan 3), mengubah setiap angka i menjadi string dengan format '#$i', lalu menambahkan hasilnya ke dalam listOfStrings setelah elemen '#0'. 
 
 **Manfaat collection 'for'**: menyederhanakan pembuatan koleksi seperti List atau Set dengan memungkinkan untuk membangunnya secara dinamis langsung di dalam deklarasinya.
@@ -476,7 +505,9 @@ void main(List<String> args) {
 
 ### **Langkah 2**
 **Output:**
+
 ![img](img/Prak5Lang2.png)
+
 **Deskripsi:** print(record) hanya menampilkan seluruh isi dari struktur data tersebut ke konsol dalam format (field_posisi_1, field_posisi_2, nama_field_1: nilai, nama_field_2: nilai).
 
 ### **Langkah 3**
@@ -494,7 +525,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak5Lang3-error.png)
+
 **Deskripsi:** Output program tidak terjadi error, namun fungsi tukar belum digunakan dan diberlakukan dengan benar.
 
 **Kode setelah saya perbaiki:** 
@@ -517,6 +550,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak5Lang3-success.png)
 
 ### **Langkah 4:**
@@ -544,7 +578,9 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak5Lang4-error.png)
+
 **Deskripsi:** Setelah kode dijalankan outputnya adalah error, dikarenakan variabel mahasiswa adalah null.
 
 **Kode setelah saya perbaiki:**
@@ -570,6 +606,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak5Lang4-success.png)
 
 ### **Langkah 5:**
@@ -603,6 +640,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/Prak5Lang5.png)
 
 ## **Tugas Praktikum**
@@ -626,6 +664,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/ParameterPosisional.png)
 
 - **Parameter Bernama (Named Parameters):** Parameter ini bersifat opsional (kecuali ditandai required) dan diidentifikasi berdasarkan namanya, bukan posisinya. Mereka didefinisikan di dalam kurung kurawal {}.
@@ -644,6 +683,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/ParameterBernama.png)
 
 - **Parameter Bernama yang Wajib Diisi (Required Named Parameters):** Ini adalah parameter bernama yang harus diisi saat fungsi dipanggil. Kita menggunakan kata kunci required.
@@ -661,9 +701,11 @@ void main(List<String> args) {
 ~~~
 
 **Output jika semua variable diisi:**
+
 ![img](img/RequiredNamedParamter-success.png)
 
 **Output jika salah satu variable tidak diisi:**
+
 ![img](img/RequiredNamedParameter-error.png)
 
 - **Parameter Posisional Opsional (Optional Positional Parameters):** Parameter ini bersifat opsional dan didefinisikan di dalam kurung siku []. Posisinya tetap penting jika diisi.
@@ -684,6 +726,7 @@ void main(List<String> args) {
 ~~~
 
 **Output:**
+
 ![img](img/OptionalPositionalParamter.png)
 
 ### 4. Jelaskan maksud Functions sebagai first-class objects beserta contoh sintaknya!
@@ -706,6 +749,7 @@ void main() {
 ~~~
 
 **Output:**
+
 ![img](img/Tugas4-1.png)
 
 - Diberikan sebagai argumen (parameter) ke fungsi lain.
@@ -736,6 +780,7 @@ void main() {
 ~~~
 
 **Output:**
+
 ![img](img/Tugas4-2.png)
 
 - Dikembalikan sebagai hasil dari fungsi lain.
@@ -760,6 +805,7 @@ void main() {
 ~~~
 
 **Output:**
+
 ![img](img/Tugas4-3.png)
 
 ### 5. Apa itu Anonymous Functions? 
@@ -781,6 +827,7 @@ void main() {
 ~~~
 
 **Output:**
+
 ![img](img/Tugas5.png)
 
 ### 6. Jelaskan perbedaan Lexical scope dan Lexical closures! Berikan contohnya!
@@ -815,6 +862,7 @@ void main() {
 ~~~
 
 **Output:**
+
 ![img](img/Tugas6.png)
 
 ### 7. Jelaskan dengan contoh cara membuat return multiple value di Functions!
@@ -836,4 +884,5 @@ void main() {
 ~~~
 
 **Output:**
+
 ![img](img/Tugas7.png)
