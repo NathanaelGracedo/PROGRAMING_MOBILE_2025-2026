@@ -169,3 +169,297 @@ void main(List<String> args) {
 **Output:**
 ![img](img/Prak3Lang3.png)
 **Deskripsi:** Saya sudah menambahkan nama dan NIM saya pada var gifts, nobleGases, mhs1, dan mhs2. Program akan memunculkan isi dari masing masing variable yang sudah di deklarasikan.
+
+## **Praktikum 4: Eksperimen Tipe Data List: Spread dan Control-flow Operators**
+### **Langkah 1**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print(list1);
+  print(list2);
+  print(list2.length);
+}
+~~~
+
+### **Langkah 2**
+**Output:**
+![img](img/Prak4Lang2-error.png)
+**Deskripsi**: Saat kode di run terjadi error karena kode memanggil list1 yang dimana tidka di deklarasikan.
+
+**Kode setelah saya perbaiki:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print(list);
+  print(list2);
+  print(list2.length);
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang2-success.png)
+**Deskripsi:** Kode mengeluarkan output list dan list2 kemudian 4 adalah jumlah indeks pada list2 yang dijumlahkan list.
+
+### Langkah 3
+**Kode program:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print(list);
+  print(list2);
+  print(list2.length);
+
+  list1 = [1, 2, null];
+  print(list1);
+  var list3 = [0, ...?list1];
+  print(list3.length);
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang3-error.png)
+**Deskripsi:** Saat dijalankan program akan memunculkan output error karena list1 yang belum didefinisikan menggunkan var. 
+
+**Kode setelah saya behani dan saya tambahkan Spread operator:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print('list: $list');
+  print('list2: $list2');
+  print('Panjang list2: ${list2.length}');
+
+  var list1 = [1, 2, null];
+  print('list1: $list1');
+  var list3 = [0, ...list1];
+  print('list3 (setelah spread): $list3');
+  print('Panjang list3: ${list3.length}');
+  var nim = ['2', '3', '4', '1', '7', '2', '0', '2', '1', '7'];
+  var nimSpread = [...nim];
+  print('NIM: $nim');
+  print('NIM (setelah di-spread): $nimSpread');
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang3-success.png)
+
+
+### Langkah 4
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print('list: $list');
+  print('list2: $list2');
+  print('Panjang list2: ${list2.length}');
+
+  var list1 = [1, 2, null];
+  print('list1: $list1');
+  var list3 = [0, ...list1];
+  print('list3 (setelah spread): $list3');
+  print('Panjang list3: ${list3.length}');
+  var nim = ['2', '3', '4', '1', '7', '2', '0', '2', '1', '7'];
+  var nimSpread = [...nim];
+  print('NIM: $nim');
+  print('NIM (setelah di-spread): $nimSpread');
+
+  var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print(nav);
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang4-error.png)
+**Deskripsi:** Program akan mengeluarkan output error karena promoActive belum di definisikan.
+
+**Kode setelah saya perbaiki:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print('list: $list');
+  print('list2: $list2');
+  print('Panjang list2: ${list2.length}');
+
+  var list1 = [1, 2, null];
+  print('list1: $list1');
+  var list3 = [0, ...list1];
+  print('list3 (setelah spread): $list3');
+  print('Panjang list3: ${list3.length}');
+  var nim = ['2', '3', '4', '1', '7', '2', '0', '2', '1', '7'];
+  var nimSpread = [...nim];
+  print('NIM: $nim');
+  print('NIM (setelah di-spread): $nimSpread');
+
+  // Skenario 1: promoActive = false
+  bool promoActive = false;
+  var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive false: $nav');
+
+  // Skenario 2: promoActive = true
+  promoActive = true;
+  nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive true: $nav');
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang4-success.png)
+**Deskripsi:** Jika promoActive adalah false, maka List nav akan berisi: ['Home', 'Furniture', 'Plants'].
+Jika promoActive adalah true, maka List nav akan berisi: ['Home', 'Furniture', 'Plants', 'Outlet'].
+
+### **Langkah 5:**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print('list: $list');
+  print('list2: $list2');
+  print('Panjang list2: ${list2.length}');
+
+  var list1 = [1, 2, null];
+  print('list1: $list1');
+  var list3 = [0, ...list1];
+  print('list3 (setelah spread): $list3');
+  print('Panjang list3: ${list3.length}');
+  var nim = ['2', '3', '4', '1', '7', '2', '0', '2', '1', '7'];
+  var nimSpread = [...nim];
+  print('NIM: $nim');
+  print('NIM (setelah di-spread): $nimSpread');
+
+  // Skenario 1: promoActive = false
+  bool promoActive = false;
+  var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive false: $nav');
+
+  // Skenario 2: promoActive = true
+  promoActive = true;
+  nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive true: $nav');
+
+  var nav2 = ['Home', 'Furniture', 'Plants', if (login case 'Manager') 'Inventory'];
+  print(nav2);
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang5-error.png)
+**Deskripsi:** Kode akan mengeluarkan output error karena login belum di definisikan.
+
+**Kode setelah saya perbaiki:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print('list: $list');
+  print('list2: $list2');
+  print('Panjang list2: ${list2.length}');
+
+  var list1 = [1, 2, null];
+  print('list1: $list1');
+  var list3 = [0, ...list1];
+  print('list3 (setelah spread): $list3');
+  print('Panjang list3: ${list3.length}');
+  var nim = ['2', '3', '4', '1', '7', '2', '0', '2', '1', '7'];
+  var nimSpread = [...nim];
+  print('NIM: $nim');
+  print('NIM (setelah di-spread): $nimSpread');
+
+  // Skenario 1: promoActive = false
+  bool promoActive = false;
+  var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive false: $nav');
+
+  // Skenario 2: promoActive = true
+  promoActive = true;
+  nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive true: $nav');
+
+  
+  String login;
+  // Kondisi 1: login = 'Manager'
+  login = 'Manager';
+  var nav2 = [
+    'Home',
+    'Furniture',
+    'Plants',
+    if (login == 'Manager') 'Inventory',
+  ];
+  print("Hasil jika login = 'Manager': $nav2");
+
+  // Kondisi 2: login = 'User'
+  login = 'User';
+  nav2 = ['Home', 'Furniture', 'Plants', if (login == 'Manager') 'Inventory'];
+  print("Hasil jika login = 'User': $nav2");
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang5-success.png)
+
+### **Langkah 6**
+**Kode Program:**
+~~~Dart
+void main(List<String> args) {
+  var list = [1, 2, 3];
+  var list2 = [0, ...list];
+  print('list: $list');
+  print('list2: $list2');
+  print('Panjang list2: ${list2.length}');
+
+  var list1 = [1, 2, null];
+  print('list1: $list1');
+  var list3 = [0, ...list1];
+  print('list3 (setelah spread): $list3');
+  print('Panjang list3: ${list3.length}');
+  var nim = ['2', '3', '4', '1', '7', '2', '0', '2', '1', '7'];
+  var nimSpread = [...nim];
+  print('NIM: $nim');
+  print('NIM (setelah di-spread): $nimSpread');
+
+  // Skenario 1: promoActive = false
+  bool promoActive = false;
+  var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive false: $nav');
+
+  // Skenario 2: promoActive = true
+  promoActive = true;
+  nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
+  print('Hasil jika promoActive true: $nav');
+
+  
+  String login;
+  // Kondisi 1: login = 'Manager'
+  login = 'Manager';
+  var nav2 = [
+    'Home',
+    'Furniture',
+    'Plants',
+    if (login == 'Manager') 'Inventory',
+  ];
+  print("Hasil jika login = 'Manager': $nav2");
+
+  // Kondisi 2: login = 'User'
+  login = 'User';
+  nav2 = ['Home', 'Furniture', 'Plants', if (login == 'Manager') 'Inventory'];
+  print("Hasil jika login = 'User': $nav2");
+
+  var listOfInts = [1, 2, 3];
+  var listOfStrings = ['#0', for (var i in listOfInts) '#$i'];
+  assert(listOfStrings[1] == '#1');
+  print(listOfStrings);
+}
+~~~
+
+**Output:**
+![img](img/Prak4Lang6.png)
+**Deskripsi:** Saat dijalankan program akan mencetak output ['#0', '#1', '#2', '#3'].  Ini terjadi karena collection for (for (var i in listOfInts) '#$i') melakukan iterasi pada setiap elemen di listOfInts (yaitu 1, 2, dan 3), mengubah setiap angka i menjadi string dengan format '#$i', lalu menambahkan hasilnya ke dalam listOfStrings setelah elemen '#0'. 
+
+**Manfaat collection 'for'**: menyederhanakan pembuatan koleksi seperti List atau Set dengan memungkinkan untuk membangunnya secara dinamis langsung di dalam deklarasinya.
