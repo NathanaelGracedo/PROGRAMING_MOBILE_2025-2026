@@ -385,3 +385,24 @@ class _MyHomePageState extends State<MyHomePage> {
 **Output:**
 
 ![img](img//Prak5Lang6.gif)
+
+## Codelabs: Your First Flutter App.
+### **Button**
+
+![img](img/TugasButton.gif)
+
+### **Prettier**
+
+![img](img/TugasPrettier.gif)
+
+### **Functionality**
+
+![img](img/TugasFunctionality.gif)
+
+### **Navigation Rail**
+
+![img](img/TugasNavRail.gif)
+
+### **Add New Page**
+
+![img](img/TugasAddNewPage.gif)
