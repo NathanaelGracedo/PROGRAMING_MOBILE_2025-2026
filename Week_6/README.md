@@ -8,7 +8,7 @@
 
 ## **Praktikum 1-4 Membangun Layout di Flutter**
 
-### **Implementasi Title Row**
+### Implementasi Title Row
 ~~~Dart
  Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -43,7 +43,7 @@
     );
 ~~~
 
-### **method Column _buildButtonColumn**
+### method Column _buildButtonColumn
 ~~~Dart
  Column _buildButtonColumn(Color color, IconData icon, String label) {
       return Column(
@@ -67,7 +67,7 @@
     }
 ~~~
 
-### **widget buttonSection**
+### widget buttonSection
 ~~~Dart
   Color color = Theme.of(context).primaryColor;
 
@@ -81,7 +81,7 @@
     );
 ~~~
 
-### **widget textSection**
+### widget textSection
 ~~~Dart
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
@@ -93,7 +93,7 @@
     );
 ~~~
 
-### **Asset Gambar**
+### Asset Gambar
 ~~~Dart
     return MaterialApp(
       title: 'Flutter layout: Nathanael Juan Gracedo - 2341720217',
@@ -124,7 +124,7 @@
 
 ## **Tugas Praktikum 1**
 
-### **Menambahkan Widget recomendationSection**
+### Menambahkan Widget recomendationSection
 ~~~Dart
     Widget recommendationSection = Container(
       padding: const EdgeInsets.all(16),
@@ -184,7 +184,7 @@
     );
 ~~~
 
-### **Memanggil pada body**
+### Memanggil pada body
 ~~~Dart
   return MaterialApp(
       title: 'Flutter layout: Nathanael Juan Gracedo - 2341720217',
@@ -208,6 +208,158 @@
     );
 ~~~
 
-### **Output Tugas Praktikum 1**
+### Output Tugas Praktikum 1
 
 ![TugasPrak1](img/TugasPrak1.gif)
+
+## **Praktikum 5: Membangun Navigasi di Flutter**
+
+### Menyusun struktur folder pada lib
+
+![folder](img/folder.png)
+
+### Membuat File home_page.dart pada folder pages dan mendklarasikan widget HomePage
+~~~Dart
+import 'package:flutter/material.dart';
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext conctext) {
+    throw UnimplementedError();
+  }
+}
+~~~
+
+### Membuat File item_page.dart pada folder pages dan mendklarasikan widget ItemPage
+~~~Dart
+import 'package:flutter/material.dart';
+
+class ItemPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    throw UnimplementedError();
+  }
+}
+~~~
+
+### Melengkapi kode main.dart untuk mendefinisikan route
+~~~Dart
+import 'package:belanja/pages/home_page.dart';
+import 'package:belanja/pages/item_page.dart';
+import 'package:flutter/material.dart';
+
+
+void main() {
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => HomePage(),
+      '/item': (context) => ItemPage(),
+    },
+  ));
+}
+~~~
+
+### Membuat file item.dart pada folder models
+~~~Dart
+class Item {
+  String name;
+  int price;
+
+  Item({required this.name, required this.price});
+}
+~~~
+
+### Mengambil models item pada file home_page.dart
+~~~Dart
+import 'package:flutter/material.dart';
+import 'package:belanja/models/item.dart';
+
+class HomePage extends StatelessWidget {
+  final List<Item> items = [
+    Item(name: 'Masako', price: 2000),
+    Item(name: 'Sasa', price: 1000),
+  ];
+}
+~~~
+
+### Menambahkan body pada file home_page.dart
+~~~Dart
+import 'package:flutter/material.dart';
+import 'package:belanja/models/item.dart';
+
+class HomePage extends StatelessWidget {
+  final List<Item> items = [
+    Item(name: 'Masako', price: 2000),
+    Item(name: 'Sasa', price: 1000),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text('Nathanael Juan Gracedo - 2341720217'),
+      ),
+      body: Container(
+        margin: EdgeInsets.all(8),
+        child: ListView.builder(
+          padding: EdgeInsets.all(8),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final item = items[index];
+            return Card(
+              child: Container(
+                margin: EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Expanded(child: Text(item.name)),
+                    Expanded(
+                      child: Text(
+                        item.price.toString(),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+~~~
+
+### Melakukan wrap Inkwell pada Card
+~~~Dart
+return InkWell(
+  onTap: () {
+    Navigator.pushNamed(context, '/item');
+  },
+)
+~~~
+
+### Menambahkan text pada file item_page.dart
+~~~Dart
+import 'package:flutter/material.dart';
+
+class ItemPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text('Item Details'),
+      ),
+      body: Center(child: Text('Ini adalah halaman Item')),
+    );
+  }
+}
+~~~
+
+### Output Praktikum 5
+
+![Prak5](img/Prak5.gif)
+
