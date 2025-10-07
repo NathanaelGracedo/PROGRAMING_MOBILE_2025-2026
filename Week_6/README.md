@@ -210,3 +210,4 @@
 
 ### **Output Tugas Praktikum 1**
 
+![TugasPrak1](img/TugasPrak1.gif)
