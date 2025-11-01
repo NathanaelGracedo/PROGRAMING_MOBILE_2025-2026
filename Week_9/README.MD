@@ -222,3 +222,60 @@ String get completenessMessage =>
    - Widget code lebih bersih: `Text(plan.completenessMessage)`
    - Mudah dibaca dan dipahami
    - Logic business terpisah dari UI logic
+
+## Praktikum 3
+Output:
+
+![Praktikum3](img/Praktikum3.gif)
+
+## Tugas Praktikum 3
+2. Berdasarkan Praktikum 3 yang telah Anda lakukan, jelaskan maksud dari gambar diagram berikut ini!
+![soal](img/soal.png)
+
+**Jawab:**
+
+Diagram tersebut menjelaskan **arsitektur State Management** menggunakan **InheritedNotifier** dan **Navigator** untuk multi-screen navigation dengan state yang ter-share.
+
+**Penjelasan Detail Diagram:**
+
+**1. MaterialApp sebagai Root Widget:**
+- `MaterialApp` adalah root widget dari aplikasi Flutter
+- Membungkus seluruh aplikasi dan menyediakan theming, routing, dll.
+
+**2. PlanProvider (InheritedNotifier Layer):**
+- **Posisi**: Membungkus MaterialApp, berada di level tertinggi widget tree
+- **Fungsi**: Menyediakan **shared state** berupa `ValueNotifier<List<Plan>>` yang bisa diakses dari semua descendant widgets
+- **Scope**: Semua widget di bawahnya (PlanCreatorScreen dan PlanScreen) bisa mengakses data plan yang sama
+- **Pattern**: Menggunakan InheritedNotifier pattern untuk automatic rebuild saat data berubah
+
+**3. Navigator (Route Management):**
+- **Fungsi**: Mengelola stack navigasi antar screen
+- **Lokasi**: Di dalam MaterialApp
+- **Task**: Push/pop screen seperti PlanCreatorScreen dan PlanScreen
+
+**4. PlanCreatorScreen (Home/First Screen):**
+- **Fungsi**: 
+  - Screen utama untuk **membuat plan baru**
+  - Menampilkan **list semua plan** yang sudah dibuat
+  - Navigasi ke PlanScreen saat plan di-tap
+- **Akses State**: Mengambil dan memodifikasi `List<Plan>` melalui `PlanProvider.of(context)`
+- **User Action**: 
+  - Input nama plan → tambah plan baru ke list
+  - Tap plan → navigate ke PlanScreen dengan `Navigator.push()`
+
+**5. PlanScreen (Detail Screen):**
+- **Fungsi**:
+  - Screen detail untuk **mengelola tasks** dari plan tertentu
+  - Menampilkan list tasks dengan checkbox
+  - Menambah task baru
+- **Parameter**: Menerima object `Plan` dari navigation
+- **Akses State**: Mengambil dan memodifikasi plan spesifik di `List<Plan>` melalui `PlanProvider.of(context)`
+- **User Action**:
+  - Check/uncheck task
+  - Edit task description
+  - Tambah task baru
+  - Back → kembali ke PlanCreatorScreen
+  
+**Kesimpulan:**
+
+Diagram ini menggambarkan pattern **"Lift State Up"** dimana state di-lift ke level tertinggi (PlanProvider) sehingga bisa di-share oleh multiple screens. Navigator mengelola perpindahan antar screen, sementara InheritedNotifier memastikan semua screen selalu punya data terkini tanpa perlu manual passing atau callback. 
