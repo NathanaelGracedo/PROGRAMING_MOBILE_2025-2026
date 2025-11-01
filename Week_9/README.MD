@@ -96,3 +96,129 @@ Method `dispose()` adalah lifecycle method yang **dipanggil sekali** saat widget
 ```
 Widget dihapus → dispose() dipanggil → Resource dibersihkan
 ```
+## Praktikum 2 
+Output:
+
+![Praktikum2](img/Praktikum2.gif)
+
+## Tugas Praktikum 2
+2. Jelaskan mana yang dimaksud InheritedWidget pada langkah 1 tersebut! Mengapa yang digunakan InheritedNotifier?
+
+**Jawab:**
+
+Pada langkah 1, yang dimaksud **InheritedWidget** adalah class `InheritedNotifier<ValueNotifier<Plan>>` yang menjadi **parent class** dari `PlanProvider`.
+
+```dart
+class PlanProvider extends InheritedNotifier<ValueNotifier<Plan>> {
+  // InheritedNotifier adalah subclass dari InheritedWidget
+}
+```
+
+**Penjelasan:**
+- `InheritedNotifier` adalah **turunan/subclass** dari `InheritedWidget`
+- `PlanProvider` meng-extend `InheritedNotifier`, yang berarti secara tidak langsung juga meng-extend `InheritedWidget`
+- Hierarki class: `PlanProvider` → `InheritedNotifier` → `InheritedWidget`
+
+---
+
+**Mengapa menggunakan InheritedNotifier (bukan InheritedWidget biasa)?**
+
+**Alasan:**
+
+1. **Auto rebuild dengan Listenable**:
+   - `InheritedNotifier` sudah built-in support untuk `Listenable` (seperti `ValueNotifier`)
+   - Widget yang subscribe otomatis rebuild saat `ValueNotifier.value` berubah
+   - Tidak perlu implementasi manual `updateShouldNotify()`
+
+2. **Lebih simpel dan efisien**:
+   ```dart
+   // Dengan InheritedNotifier - MUDAH
+   class PlanProvider extends InheritedNotifier<ValueNotifier<Plan>> {
+     // Sudah otomatis listen ke ValueNotifier
+   }
+   
+   // Jika pakai InheritedWidget biasa - RIBET
+   class PlanProvider extends InheritedWidget {
+     final Plan plan;
+     
+     @override
+     bool updateShouldNotify(PlanProvider old) {
+       return plan != old.plan; // Harus manual cek
+     }
+   }
+   ```
+
+3. **Reactive programming**:
+   - `ValueNotifier` adalah implementation dari `ChangeNotifier`
+   - Saat `notifier.value` berubah, semua listener otomatis di-notify
+   - Pattern yang lebih modern dan reactive
+
+4. **Integration dengan ValueListenableBuilder**:
+   - `InheritedNotifier` bekerja sempurna dengan `ValueListenableBuilder`
+   - Kombinasi keduanya membuat state management yang powerful
+
+**Kesimpulan:**
+`InheritedNotifier` dipilih karena sudah menyediakan mekanisme otomatis untuk listen perubahan data melalui `ValueNotifier`, sehingga lebih simpel dan efisien daripada menggunakan `InheritedWidget` biasa yang harus manual mengatur kapan widget harus rebuild.
+
+3. Jelaskan maksud dari method di langkah 3 pada praktikum tersebut! Mengapa dilakukan demikian?
+
+**Jawab:**
+
+**Method `completedCount`:**
+```dart
+int get completedCount => tasks
+  .where((task) => task.complete)
+  .length;
+```
+
+**Maksud:**
+- **Menghitung jumlah task yang sudah selesai** (complete)
+- Menggunakan `where()` untuk filter task yang `complete == true`
+- Mengembalikan jumlah (`length`) task yang sudah di-check
+
+**Contoh:**
+Jika ada 5 task dan 3 sudah di-check, maka `completedCount = 3`
+
+---
+
+**Method `completenessMessage`:**
+```dart
+String get completenessMessage =>
+  '$completedCount out of ${tasks.length} tasks';
+```
+
+**Maksud:**
+- **Membuat pesan progress** dalam bentuk string
+- Format: "X out of Y tasks" (misal: "3 out of 5 tasks")
+- Menggunakan `completedCount` dan `tasks.length`
+
+**Contoh output:**
+- "0 out of 5 tasks" → belum ada yang selesai
+- "3 out of 5 tasks" → 3 dari 5 task selesai
+- "5 out of 5 tasks" → semua task selesai
+
+---
+
+**Mengapa dilakukan demikian?**
+
+**Alasan:**
+
+**Separation of Concerns**:
+   - Logic perhitungan ada di **model** (Plan), bukan di **view** (Widget)
+   - Model bertanggung jawab atas data dan logic bisnisnya sendiri
+   - View hanya perlu memanggil `plan.completenessMessage`
+
+**Reusability**:
+   - Method ini bisa dipanggil dari mana saja yang punya object Plan
+   - Tidak perlu duplikasi kode perhitungan di berbagai tempat
+   - DRY principle (Don't Repeat Yourself)
+
+**Reactive & Auto-update**:
+   - Karena menggunakan **getter**, nilai otomatis recalculate setiap kali diakses
+   - Tidak perlu manual update saat data tasks berubah
+   - Kombinasi dengan `ValueListenableBuilder`, UI otomatis update
+
+**Clean Code**:
+   - Widget code lebih bersih: `Text(plan.completenessMessage)`
+   - Mudah dibaca dan dipahami
+   - Logic business terpisah dari UI logic
