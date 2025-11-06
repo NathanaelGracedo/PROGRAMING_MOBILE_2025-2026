@@ -286,3 +286,102 @@ Langkah 5-6 menambahkan **error handling** yang komprehensif pada kode langkah 2
 Output:
 
 ![output3-b](img/Praktikum3-a.gif)
+
+## Praktikum 4
+### Soal 7: Capture hasil praktikum Anda berupa GIF dan lampirkan di README. 
+
+![output4-a](img/Praktikum4-a.gif)
+
+### Soal 8: Jelaskan maksud perbedaan kode langkah 1 dan 4!
+
+**Perbedaan Langkah 1 dengan Langkah 4:**
+
+**Langkah 1 - Menggunakan FutureGroup:**
+
+```dart
+void returnFG() {
+  FutureGroup<int> futureGroup = FutureGroup<int>();
+  futureGroup.add(returnOneAsync());
+  futureGroup.add(returnTwoAsync());
+  futureGroup.add(returnThreeAsync());
+  futureGroup.close();
+  futureGroup.future.then((List<int> value) {
+    int total = 0;
+    for (var element in value) {
+      total += element;
+    }
+    setState(() {
+      result = total.toString();
+    });
+  });
+}
+```
+
+**Langkah 4 - Menggunakan Future.wait:**
+
+```dart
+void returnFG() {
+  final futures = Future.wait<int>([
+    returnOneAsync(),
+    returnTwoAsync(),
+    returnThreeAsync(),
+  ]);
+  futures.then((List<int> value) {
+    int total = 0;
+    for (var element in value) {
+      total += element;
+    }
+    setState(() {
+      result = total.toString();
+    });
+  });
+}
+```
+
+**Perbedaan Detail:**
+
+1. **Cara Membuat dan Mengelola Future:**
+
+   **Langkah 1 (FutureGroup):**
+   - Menggunakan class `FutureGroup` dari package `async/async.dart`
+   - Membuat instance FutureGroup terlebih dahulu: `FutureGroup<int>()`
+   - Menambahkan Future satu per satu menggunakan method `.add()`
+   - Harus memanggil `.close()` untuk menandakan tidak ada Future lagi yang akan ditambahkan
+   - Mengakses hasil melalui `futureGroup.future.then()`
+   - **Memerlukan import**: `import 'package:async/async.dart';`
+   
+   **Langkah 4 (Future.wait):**
+   - Menggunakan method `Future.wait()` yang merupakan built-in dari Dart
+   - Langsung menerima List of Futures sebagai parameter dalam bentuk array `[...]`
+   - Tidak perlu memanggil `.close()` karena list sudah final
+   - Langsung mengembalikan Future yang bisa di-chain dengan `.then()`
+   - **Tidak memerlukan import tambahan** (sudah ada di `dart:async` yang built-in)
+
+2. **Sintaks dan Keterbacaan:**
+
+   **FutureGroup:**
+   - Lebih verbose (banyak baris kode)
+   - Memerlukan 5 langkah: buat instance → add Future 1 → add Future 2 → add Future 3 → close
+   - Cocok jika jumlah Future dinamis atau ditambahkan secara kondisional
+   
+   **Future.wait:**
+   - Lebih ringkas dan clean
+   - Deklaratif: semua Future didefinisikan dalam satu list
+   - Lebih mudah dibaca dan dipahami
+   - Cocok ketika semua Future sudah diketahui di awal
+
+3. **Performa dan Hasil:**
+
+   **Keduanya memberikan hasil yang sama:**
+   - Menjalankan semua Future secara **paralel** (bersamaan)
+   - Menunggu sampai **semua** Future selesai
+   - Mengembalikan `List<int>` yang berisi hasil dari semua Future
+   - Total waktu eksekusi: ~3 detik (bukan 9 detik)
+   - Hasil akhir: [1, 2, 3] yang dijumlahkan menjadi 6
+
+**Kesimpulan:**
+
+Kedua pendekatan mencapai tujuan yang sama (menjalankan multiple Future secara paralel), tetapi:
+- **FutureGroup**: Lebih fleksibel tetapi lebih verbose, memerlukan package eksternal
+- **Future.wait**: Lebih sederhana, clean, dan merupakan cara standar/idiomatis di Dart
+

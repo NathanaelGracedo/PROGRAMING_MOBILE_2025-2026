@@ -81,6 +81,23 @@ class _FuturePageState extends State<FuturePage> {
     });
   }
 
+  void returnFG() {
+    final futures = Future.wait<int>([
+      returnOneAsync(),
+      returnTwoAsync(),
+      returnThreeAsync(),
+    ]);
+    futures.then((List<int> value) {
+      int total = 0;
+      for (var element in value) {
+        total += element;
+      }
+      setState(() {
+        result = total.toString();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,16 +109,19 @@ class _FuturePageState extends State<FuturePage> {
             ElevatedButton(
               child: const Text('GO!'),
               onPressed: () {
-                getNumber()
-                    .then((value) {
-                      setState(() {
-                        result = value.toString();
-                      });
-                    })
-                    .catchError((e) {
-                      result = 'An error occurred';
-                    });
+                returnFG();
               },
+              // onPressed: () {
+              //   getNumber()
+              //       .then((value) {
+              //         setState(() {
+              //           result = value.toString();
+              //         });
+              //       })
+              //       .catchError((e) {
+              //         result = 'An error occurred';
+              //       });
+              // },
               // onPressed: () {
               //   count();
               // },
