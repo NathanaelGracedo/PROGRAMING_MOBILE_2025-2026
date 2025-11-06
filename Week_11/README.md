@@ -385,3 +385,157 @@ Kedua pendekatan mencapai tujuan yang sama (menjalankan multiple Future secara p
 - **FutureGroup**: Lebih fleksibel tetapi lebih verbose, memerlukan package eksternal
 - **Future.wait**: Lebih sederhana, clean, dan merupakan cara standar/idiomatis di Dart
 
+## Praktikum 5
+### Soal 9: Capture hasil praktikum Anda berupa GIF dan lampirkan di README
+
+Output:
+
+![output5-a](img/Praktikum5-a.gif)
+![alt text](img/console.png)
+
+### Soal 10: Panggil method handleError() tersebut di ElevatedButton, lalu run. Apa hasilnya? Jelaskan perbedaan kode langkah 1 dan 4!
+
+Jawab:
+
+**Hasil yang ditampilkan:**
+
+Ketika tombol "GO!" ditekan, setelah 2 detik aplikasi akan menampilkan:
+- **Di layar (UI)**: "Exception: Something terrible happened!"
+- **Di console**: "Complete"
+
+**Perbedaan Kode Langkah 1 dan Langkah 4:**
+
+**Langkah 1 - Error Handling dengan .then().catchError().whenComplete():**
+
+```dart
+onPressed: () {
+  returnError()
+      .then((value) {
+        setState(() {
+          result = 'Success';
+        });
+      })
+      .catchError((onError) {
+        setState(() {
+          result = onError.toString();
+        });
+      })
+      .whenComplete(() => print('Complete'));
+}
+```
+
+**Langkah 4 - Error Handling dengan try-catch-finally:**
+
+```dart
+Future handleError() async {
+  try {
+    await returnError();
+  } catch (error) {
+    setState(() {
+      result = error.toString();
+    });
+  } finally {
+    print('Complete');
+  }
+}
+
+// Dipanggil di onPressed
+onPressed: () {
+  handleError();
+}
+```
+
+**Perbedaan Detail:**
+
+1. **Pendekatan Error Handling:**
+
+   **Langkah 1 (Functional/Chaining approach):**
+   - Menggunakan method chaining: `.then()`, `.catchError()`, `.whenComplete()`
+   - Pendekatan functional programming style
+   - Error handling dilakukan dengan callback functions
+   - Kode ditulis inline di dalam `onPressed()`
+   
+   **Langkah 4 (Imperative/try-catch approach):**
+   - Menggunakan try-catch-finally yang lebih tradisional
+   - Pendekatan imperative programming style
+   - Error handling menggunakan blok try-catch
+   - Kode dipisahkan ke method `handleError()` yang terpisah
+
+2. **Struktur Kode:**
+
+   **Langkah 1:**
+   - Semua logic error handling ada di dalam `onPressed()`
+   - Lebih ringkas untuk kasus sederhana
+   - Method chaining membuat kode horizontal (bisa panjang ke samping)
+   
+   **Langkah 4:**
+   - Logic error handling dipisah ke method terpisah
+   - Lebih modular dan reusable
+   - Kode lebih vertikal dan mudah dibaca
+   - `onPressed()` menjadi lebih clean
+
+3. **Penggunaan async/await:**
+
+   **Langkah 1:**
+   - Tidak menggunakan `await` secara eksplisit
+   - Mengandalkan Promise-like pattern dengan `.then()`
+   - Asynchronous tapi tidak perlu method `async`
+   
+   **Langkah 4:**
+   - Menggunakan `async/await` secara eksplisit
+   - Method harus ditandai dengan `async`
+   - Lebih mudah dibaca seperti kode synchronous
+   - Menggunakan `await` untuk menunggu Future selesai
+
+4. **Error Object:**
+
+   **Langkah 1:**
+   - Parameter di catchError: `onError`
+   - Langsung dikonversi ke string: `onError.toString()`
+   
+   **Langkah 4:**
+   - Parameter di catch: `error`
+   - Langsung dikonversi ke string: `error.toString()`
+   - Sama saja, hanya penamaan yang berbeda
+
+5. **Completion Handler:**
+
+   **Langkah 1:**
+   - Menggunakan `.whenComplete(() => print('Complete'))`
+   - Dijalankan setelah then atau catchError
+   
+   **Langkah 4:**
+   - Menggunakan `finally { print('Complete'); }`
+   - Dijalankan setelah try atau catch
+
+**Hasil Eksekusi (Sama untuk Kedua Pendekatan):**
+
+1. User menekan tombol "GO!"
+2. `returnError()` dipanggil
+3. Menunggu 2 detik (Future.delayed)
+4. Exception dilempar: "Something terrible happened!"
+5. Error ditangkap (oleh catchError atau catch)
+6. UI di-update dengan pesan error
+7. "Complete" dicetak ke console
+8. Hasil di layar: "Exception: Something terrible happened!"
+
+**Kesimpulan:**
+
+**Langkah 1 (.then().catchError()):**
+- Cocok untuk kasus sederhana dan one-liner
+- Tidak perlu membuat method terpisah
+- Pendekatan functional programming
+- Bisa sulit dibaca jika chain-nya panjang
+- Tidak familiar bagi developer dari bahasa lain
+
+**Langkah 4 (try-catch-finally):**
+- Lebih familiar dan mudah dipahami
+- Lebih mudah dibaca seperti kode synchronous
+- Lebih modular dengan method terpisah
+- Lebih baik untuk error handling yang kompleks
+- Support debugging yang lebih baik
+- Memerlukan method async terpisah
+
+
+
+
