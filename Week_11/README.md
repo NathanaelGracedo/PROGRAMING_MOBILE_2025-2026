@@ -611,17 +611,17 @@ Future<Position> getPosition() async {
 
 Browser dapat memberikan koordinat GPS karena:
 
-✅ **Mendukung Geolocation API**: Browser modern mengimplementasikan W3C Geolocation API standard yang memungkinkan akses ke informasi lokasi
+**Mendukung Geolocation API**: Browser modern mengimplementasikan W3C Geolocation API standard yang memungkinkan akses ke informasi lokasi
 
-✅ **Multiple Location Sources**: Browser menggunakan berbagai sumber data:
+**Multiple Location Sources**: Browser menggunakan berbagai sumber data:
    - IP geolocation database
    - WiFi access point database (Google Location Services, dll)
    - Cell tower database (jika menggunakan mobile device)
    - GPS (jika device memiliki GPS dan menggunakan mobile browser)
 
-✅ **Package Compatibility**: Package `geolocator` Flutter mendukung platform web dan secara otomatis menggunakan browser's Geolocation API
+**Package Compatibility**: Package `geolocator` Flutter mendukung platform web dan secara otomatis menggunakan browser's Geolocation API
 
-❌ **Keterbatasan**:
+**Keterbatasan**:
    - Akurasi lebih rendah dari GPS sebenarnya
    - Tergantung pada database IP/WiFi yang tidak selalu up-to-date
    - Memerlukan koneksi internet
@@ -644,6 +644,56 @@ Output:
 
 ![output6-b](img/Praktikum6-b.gif)
 
+## Praktikum 7 
+### Soal 13: Apakah ada perbedaan UI dengan praktikum sebelumnya? Mengapa demikian? Capture hasil praktikum Anda  berupa GIF
 
+Jawab:
+
+**Ya, ada perbedaan UI:**
+
+**Praktikum 6 (.then()):**
+- Tidak ada loading indicator
+- Layar kosong/blank selama 3 detik
+- Koordinat muncul tiba-tiba setelah loading selesai
+
+**Praktikum 7 (FutureBuilder):**
+- Ada CircularProgressIndicator saat loading
+- User dapat melihat feedback visual yang jelas
+- Transisi smooth dari loading ke data
+
+**Mengapa demikian?**
+
+**Praktikum 6:** Menggunakan `.then()` dengan manual `setState()`. Saat pertama render, `myPosition` masih string kosong, sehingga Text widget tidak menampilkan apa-apa.
+
+**Praktikum 7:** FutureBuilder otomatis mendeteksi ConnectionState:
+- `ConnectionState.waiting` → Tampilkan CircularProgressIndicator
+- `ConnectionState.done` → Tampilkan data koordinat
+
+FutureBuilder memberikan kontrol lebih baik terhadap state management dan menghasilkan UX yang lebih baik.
+
+Output:
+
+![output7-a](img/Praktikum7-a.gif)
+
+### Soal 14: Apakah ada perbedaan UI dengan langkah sebelumnya? Mengapa demikian? Capture hasil praktikum Anda berupa GIF dan lampirkan di README
+
+Jawab:
+
+**Tidak ada perbedaan UI yang terlihat** antara langkah sebelumnya dengan setelah menambahkan error handling.
+
+**Mengapa demikian?**
+
+Karena `getPosition()` berjalan sukses tanpa error. Kode `snapshot.hasError` hanya akan menampilkan pesan "Something terrible happened!" **jika terjadi error** (misal: permission ditolak, GPS tidak aktif, atau exception lainnya).
+
+Saat ini aplikasi berjalan normal:
+- ConnectionState.waiting → Tampilkan CircularProgressIndicator
+- ConnectionState.done + **tidak ada error** → Tampilkan koordinat
+- ConnectionState.done + **ada error** → Tampilkan pesan error (tidak terjadi)
+
+Error handling adalah **safety net** yang siap menangani error jika terjadi, tapi tidak mengubah UI saat aplikasi berjalan normal.
+
+Output:
+
+![output7-b](img/Praktikum7-a.gif)
 
 
