@@ -536,6 +536,114 @@ onPressed: () {
 - Support debugging yang lebih baik
 - Memerlukan method async terpisah
 
+## Praktikum 6
+### Soal 11: Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerjaan Anda.
+~~~Dart
+ @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Current Location - Nathan')),
+      body: Center(child: Text(myPosition)),
+    );
+  }
+~~~
+
+Output:
+
+![output6](img/Praktikum6-a.png)
+
+### Soal 12: Jika Anda tidak melihat animasi loading tampil, kemungkinan itu berjalan sangat cepat. Tambahkan delay pada method getPosition() dengan kode await Future.delayed(const Duration(seconds: 3)); Apakah Anda mendapatkan koordinat GPS ketika run di browser? Mengapa demikian? Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+Jawab:
+
+**Kode setelah ditambahkan delay:**
+
+```dart
+Future<Position> getPosition() async {
+  await Geolocator.requestPermission();
+  await Geolocator.isLocationServiceEnabled();
+  await Future.delayed(const Duration(seconds: 3));
+  Position? position = await Geolocator.getCurrentPosition();
+  return position;
+}
+```
+
+**Apakah mendapatkan koordinat GPS ketika run di browser?**
+
+**Ya, dapat mendapatkan koordinat GPS ketika run di browser**, namun dengan beberapa catatan:
+
+1. **Browser Modern Mendukung Geolocation API:**
+   - Browser modern seperti Chrome, Firefox, Edge, dan Safari mendukung Web Geolocation API
+   - API ini memungkinkan web app untuk mengakses lokasi pengguna
+   - Package `geolocator` Flutter menggunakan API ini ketika running di web
+
+2. **Sumber Data Lokasi di Browser Berbeda dengan Mobile:**
+   
+   **Di Mobile (Android/iOS):**
+   - Menggunakan GPS hardware
+   - Menggunakan cell tower triangulation
+   - Menggunakan WiFi positioning
+   - Akurasi tinggi (bisa sampai beberapa meter)
+   
+   **Di Browser (Web):**
+   - **Tidak menggunakan GPS hardware** (laptop/PC umumnya tidak punya GPS)
+   - Menggunakan **IP-based geolocation** (perkiraan lokasi dari IP address)
+   - Menggunakan **WiFi positioning** (jika ada WiFi)
+   - Menggunakan **cell tower data** (jika menggunakan mobile hotspot)
+   - Akurasi rendah hingga sedang (bisa ratusan meter hingga beberapa kilometer)
+
+3. **Permission Request:**
+   - Browser akan menampilkan popup permission untuk mengakses lokasi
+   - User harus mengklik "Allow" atau "Izinkan" untuk memberikan akses
+   - Jika ditolak, aplikasi tidak akan mendapat koordinat
+
+4. **HTTPS Requirement:**
+   - Geolocation API hanya bekerja di website dengan **HTTPS** atau **localhost**
+   - Untuk production, website harus menggunakan SSL certificate
+   - Flutter development server (localhost) sudah otomatis allowed
+
+5. **Akurasi Koordinat:**
+   - Koordinat yang didapat di browser **kurang akurat** dibanding mobile
+   - Lokasi biasanya berdasarkan IP address ISP atau WiFi network
+   - Bisa menunjukkan lokasi provider internet, bukan lokasi fisik sebenarnya
+
+**Mengapa demikian?**
+
+Browser dapat memberikan koordinat GPS karena:
+
+✅ **Mendukung Geolocation API**: Browser modern mengimplementasikan W3C Geolocation API standard yang memungkinkan akses ke informasi lokasi
+
+✅ **Multiple Location Sources**: Browser menggunakan berbagai sumber data:
+   - IP geolocation database
+   - WiFi access point database (Google Location Services, dll)
+   - Cell tower database (jika menggunakan mobile device)
+   - GPS (jika device memiliki GPS dan menggunakan mobile browser)
+
+✅ **Package Compatibility**: Package `geolocator` Flutter mendukung platform web dan secara otomatis menggunakan browser's Geolocation API
+
+❌ **Keterbatasan**:
+   - Akurasi lebih rendah dari GPS sebenarnya
+   - Tergantung pada database IP/WiFi yang tidak selalu up-to-date
+   - Memerlukan koneksi internet
+   - Bisa memberikan lokasi ISP/provider, bukan lokasi fisik exact
+
+**Kesimpulan:**
+
+Aplikasi **dapat berjalan di browser dan mendapatkan koordinat**, tetapi:
+- Koordinat berbasis **IP/WiFi geolocation**, bukan GPS murni
+- **Akurasi lebih rendah** dibanding running di mobile device
+- Tetap memerlukan **user permission** melalui browser popup
+- Sangat berguna untuk web application yang memerlukan lokasi approximate
+
+**Hasil dengan delay 3 detik:**
+- CircularProgressIndicator akan terlihat selama 3 detik
+- Memberikan waktu untuk user melihat loading state
+- Mensimulasikan kondisi network yang lambat atau GPS yang memerlukan waktu untuk lock
+
+Output:
+
+![output6-b](img/Praktikum6-b.gif)
+
 
 
 
