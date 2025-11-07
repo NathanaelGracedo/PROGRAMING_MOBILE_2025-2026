@@ -696,4 +696,44 @@ Output:
 
 ![output7-b](img/Praktikum7-a.gif)
 
+## Praktikum 8
+### Soal 15: Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerjaan Anda. Silakan ganti dengan warna tema favorit Anda.
+~~~Dart
+      appBar: AppBar(
+        title: const Text('Navigation First Screen - Nathan', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.lightBlueAccent,
+        ),
+~~~
+
+### Soal 16: Cobalah klik setiap button, apa yang terjadi ? Mengapa demikian ? Gantilah 3 warna pada langkah 5 dengan warna favorit Anda! Capture hasil praktikum Anda berupa GIF dan lampirkan di README
+
+Jawab:
+
+**Apa yang terjadi?**
+
+Ketika button diklik (Red/Green/Blue), aplikasi akan:
+1. Menutup halaman kedua (NavigationSecond)
+2. Kembali ke halaman pertama (NavigationFirst)
+3. Background halaman pertama berubah sesuai warna button yang dipilih
+
+**Mengapa demikian?**
+
+Karena setiap button memanggil `Navigator.pop(context, color)` yang:
+- Mengirim data warna kembali ke halaman sebelumnya
+- Method `_navigateAndGetColor()` di halaman pertama menerima warna tersebut dengan `await Navigator.push()`
+- `setState()` dipanggil untuk update background dengan warna baru
+
+**Mekanisme:**
+```dart
+// Di NavigationSecond - kirim data
+Navigator.pop(context, Colors.red.shade700);
+
+// Di NavigationFirst - terima data
+color = await Navigator.push(...) ?? Colors.blue;
+setState(() {});
+```
+
+Output:
+
+![output8](img/Praktikum8.gif)
 
