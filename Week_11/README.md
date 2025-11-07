@@ -737,3 +737,30 @@ Output:
 
 ![output8](img/Praktikum8.gif)
 
+## Praktikum 9 
+### Soal 17: Cobalah klik setiap button, apa yang terjadi ? Mengapa demikian ? Gantilah 3 warna pada langkah 3 dengan warna favorit Anda! Capture hasil praktikum Anda berupa GIF dan lampirkan di README
+
+Jawab:
+
+**Apa yang terjadi?**
+
+Ketika button "Change Color" diklik:
+1. Muncul AlertDialog dengan 3 pilihan warna (Red/Green/Blue)
+2. Setelah memilih warna, dialog tertutup
+3. Background halaman berubah sesuai warna yang dipilih
+
+**Mengapa demikian?**
+
+Karena method `_showColorDialog()` menampilkan dialog dengan `showDialog()` yang:
+- `barrierDismissible: false` - dialog hanya bisa ditutup dengan klik button
+- Setiap TextButton memanggil `Navigator.pop(context, color)` untuk menutup dialog dan mengirim warna
+- Setelah `await showDialog()` selesai, `setState()` dipanggil untuk update background
+
+**Perbedaan dengan Praktikum 8:**
+- Praktikum 8: Navigasi ke halaman baru (full screen)
+- Praktikum 9: Menampilkan dialog (popup overlay)
+
+Output:
+
+![output9](img/Praktikum9.gif)
+
