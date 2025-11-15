@@ -231,4 +231,75 @@ stream.transform(transformer)
 
 ![praktikum3](img/Praktikum3.gif) 
 
+## Praktikum 4
+### Soal 9: Jelaskan maksud kode langkah 2, 6 dan 8 tersebut! Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+**Jawaban:**
+
+**Langkah 2 - Edit initState():**
+```dart
+@override
+void initState() {
+  numberStream = NumberStream();
+  numberStreamController = numberStream.controller;
+  Stream stream = numberStreamController.stream;
+  subscription = stream.listen((event) {
+    setState(() {
+      lastNumber = event;
+    });
+  });
+  super.initState();
+}
+```
+**Maksud:**
+- Menyimpan hasil `.listen()` ke variabel `subscription` (tipe `StreamSubscription`)
+- Dengan menyimpan subscription, kita dapat mengontrol stream listener (pause, resume, cancel)
+- Berbeda dengan praktikum sebelumnya yang langsung chain `.listen()` tanpa menyimpannya
+- Ini memungkinkan kita untuk memanipulasi subscription di method lain
+
+**Langkah 6 - Pindah ke method dispose():**
+```dart
+@override
+void dispose() {
+  subscription.cancel();
+  numberStreamController.close();
+  super.dispose();
+}
+```
+**Maksud:**
+- Menambahkan `subscription.cancel()` untuk membatalkan subscription sebelum widget dihancurkan
+- `cancel()` menghentikan listener dari menerima event lebih lanjut
+- Mencegah memory leak karena subscription tidak lagi mendengarkan stream yang sudah tidak dibutuhkan
+- Harus dipanggil sebelum `numberStreamController.close()` untuk cleanup yang proper
+- Best practice untuk menghindari error dan memastikan resource dibebaskan dengan benar
+
+**Langkah 8 - Edit method addRandomNumber():**
+```dart
+void addRandomNumber() {
+  Random random = Random();
+  int myNum = random.nextInt(10);
+  if (!numberStreamController.isClosed) {
+    numberStream.addNumberToSink(myNum);
+  } else {
+    setState(() {
+      lastNumber = -1;
+    });
+  }
+}
+```
+**Maksud:**
+- Menambahkan pengecekan `if (!numberStreamController.isClosed)` sebelum mengirim data
+- Mencegah error ketika mencoba mengirim data ke stream yang sudah ditutup
+- Jika stream masih aktif → kirim data normal
+- Jika stream sudah closed (setelah tombol "Stop Subscription" ditekan) → set `lastNumber = -1` sebagai indikator
+- Ini memberikan feedback ke user bahwa stream sudah tidak aktif
+
+**Kesimpulan**: Praktikum 4 mengajarkan subscription management - cara menyimpan, mengontrol, dan membersihkan subscription dengan proper untuk menghindari memory leak dan error.
+
+![praktikum4](img/Praktikum4.gif) 
+
+![debugconsole](img/debugConsole.png)
+
+
+
 
