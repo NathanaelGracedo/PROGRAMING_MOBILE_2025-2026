@@ -86,3 +86,98 @@ class ColorStream {
 - Cocok untuk Flutter UI karena tidak menghalangi rendering
 
 **Kesimpulan**: Untuk aplikasi Flutter, `.listen()` lebih disarankan karena tidak blocking UI thread dan memberikan kontrol lebih baik terhadap subscription.
+
+### Soal 6: Jelaskan maksud kode langkah 8 dan 10 tersebut! Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+**Jawaban:**
+
+**Langkah 8 - Edit initState():**
+```dart
+@override
+void initState() {
+  numberStream = NumberStream();
+  numberStreamController = numberStream.controller;
+  Stream stream = numberStreamController.stream;
+  stream.listen((event) {
+    setState(() {
+      lastNumber = event;
+    });
+  });
+  super.initState();
+}
+```
+**Maksud:**
+- Menginisialisasi `NumberStream` dan mengambil `StreamController`-nya
+- Membuat listener pada stream untuk mendengarkan setiap event/data baru
+- Setiap kali ada data baru (event), akan memanggil `setState()` untuk update UI dengan nilai `lastNumber`
+- Ini adalah setup awal agar stream siap menerima dan memproses data
+
+**Langkah 10 - Method addRandomNumber():**
+```dart
+void addRandomNumber() {
+  Random random = Random();
+  int myNum = random.nextInt(10);
+  numberStream.addNumberToSink(myNum);
+}
+```
+**Maksud:**
+- Generate random number dari 0-9 menggunakan `Random().nextInt(10)`
+- Mengirim angka random tersebut ke stream melalui method `addNumberToSink()`
+- Method ini dipanggil saat user menekan tombol/button
+- Data yang dikirim akan diterima oleh listener di `initState()` dan otomatis update UI
+
+**Alur kerja**: Button click → `addRandomNumber()` → Kirim data ke sink → Stream emit data → Listener tangkap → `setState()` update `lastNumber` → UI refresh
+
+![praktikum2](img/Praktikum2.gif)
+
+### Soal 7: Jelaskan maksud kode langkah 13 sampai 15 tersebut! Kembalikan kode seperti semula pada Langkah 15, comment addError() agar Anda dapat melanjutkan ke praktikum 3 berikutnya.
+
+**Jawaban:**
+
+**Langkah 13 - Tambah method addError() di stream.dart:**
+```dart
+addError() {
+  controller.sink.addError('error');
+}
+```
+**Maksud:**
+- Membuat method untuk mengirim error ke stream melalui `controller.sink.addError()`
+- Parameter `'error'` adalah pesan error yang akan dikirim
+- Method ini digunakan untuk mensimulasikan error handling pada stream
+
+**Langkah 14 - Tambah onError di initState():**
+```dart
+stream.listen((event) {
+  setState(() {
+    lastNumber = event;
+  });
+}).onError((error) {
+  setState(() {
+    lastNumber = -1;
+  });
+});
+```
+**Maksud:**
+- Menambahkan error handler pada stream listener
+- Jika stream mengirim error (bukan data normal), callback `onError` akan dipanggil
+- Saat error terjadi, `lastNumber` diset ke -1 sebagai indikator error di UI
+- Ini adalah cara menangani error pada stream secara elegant tanpa crash
+
+**Langkah 15 - Edit addRandomNumber() untuk trigger error:**
+```dart
+void addRandomNumber() {
+  // Random random = Random();
+  // int myNum = random.nextInt(10);
+  // numberStream.addNumberToSink(myNum);
+  numberStream.addError();
+}
+```
+**Maksud:**
+- Meng-comment kode generate random number
+- Mengganti dengan `numberStream.addError()` untuk memicu error
+- Sekarang saat tombol ditekan, akan mengirim error ke stream
+- Error tersebut akan ditangkap oleh `onError` handler dan menampilkan -1 di UI
+
+**Kesimpulan**: Ketiga langkah ini mendemonstrasikan error handling pada stream - cara mengirim error, menangkap error, dan memberikan feedback ke user.
+
+
