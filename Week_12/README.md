@@ -300,6 +300,30 @@ void addRandomNumber() {
 
 ![debugconsole](img/debugConsole.png)
 
+## Praktikum 5
+### Soal 10: Jelaskan mengapa error itu bisa terjadi ?
 
+**Jawaban:**
 
+Error **"Bad state: Stream has already been listened to"** terjadi karena:
+
+- `StreamController` default adalah **single-subscription stream** yang hanya bisa memiliki **satu listener**
+- Pada kode, mencoba membuat **dua subscription** (`subscription` dan `subscription2`) pada stream yang sama
+- Ketika `subscription2.listen()` dipanggil, stream sudah memiliki listener pertama dari `subscription.listen()`
+- Dart melempar error karena melanggar aturan single-subscription stream
+
+![errorSoal10](img/soal10.png)
+
+### Soal 11: Jelaskan mengapa hal itu bisa terjadi ? Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+**Jawaban:**
+
+Setiap angka muncul **dua kali** karena:
+
+- Stream diubah menjadi **broadcast stream** dengan `.asBroadcastStream()`
+- Ada **dua subscription** (`subscription` dan `subscription2`) yang mendengarkan stream yang sama
+- Ketika satu event di-emit, **kedua listener** menerima event tersebut secara bersamaan
+- Masing-masing listener menjalankan `values += '$event - '`, sehingga angka yang sama ditambahkan **2 kali**
+
+![praktikum5](img/Praktikum5.gif)
 
