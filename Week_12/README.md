@@ -87,6 +87,7 @@ class ColorStream {
 
 **Kesimpulan**: Untuk aplikasi Flutter, `.listen()` lebih disarankan karena tidak blocking UI thread dan memberikan kontrol lebih baik terhadap subscription.
 
+## Praktikum 2
 ### Soal 6: Jelaskan maksud kode langkah 8 dan 10 tersebut! Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
 
 **Jawaban:**
@@ -179,5 +180,55 @@ void addRandomNumber() {
 - Error tersebut akan ditangkap oleh `onError` handler dan menampilkan -1 di UI
 
 **Kesimpulan**: Ketiga langkah ini mendemonstrasikan error handling pada stream - cara mengirim error, menangkap error, dan memberikan feedback ke user.
+
+## Praktikum 3
+### Soal 8: Jelaskan maksud kode langkah 1-3 tersebut! Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+**Jawaban:**
+
+**Langkah 1 - Tambah variabel transformer:**
+```dart
+late StreamTransformer transformer;
+```
+**Maksud:**
+- Mendeklarasikan variabel `transformer` dengan tipe `StreamTransformer`
+- Menggunakan `late` karena akan diinisialisasi di `initState()`
+- Transformer digunakan untuk memodifikasi/transformasi data yang melewati stream
+
+**Langkah 2 - Inisialisasi StreamTransformer di initState():**
+```dart
+transformer = StreamTransformer<int, int>.fromHandlers(
+  handleData: (value, sink) {
+    sink.add(value * 10);
+  },
+  handleError: (error, trace, sink) {
+    sink.add(-1);
+  },
+  handleDone: (sink) => sink.close(),
+);
+```
+**Maksud:**
+- Membuat `StreamTransformer<int, int>` yang mengubah stream integer ke integer
+- **handleData**: Mengalikan setiap nilai dengan 10 sebelum dikirim ke listener (0→0, 1→10, 2→20, dst)
+- **handleError**: Jika ada error, kirim nilai -1 ke listener
+- **handleDone**: Menutup sink ketika stream selesai
+
+**Langkah 3 - Gunakan transformer pada stream:**
+```dart
+stream.transform(transformer)
+    .listen((event) {
+      setState(() {
+        lastNumber = event;
+      });
+    })
+```
+**Maksud:**
+- Menerapkan transformer pada stream dengan `.transform(transformer)`
+- Data dari stream akan diproses dulu oleh transformer sebelum sampai ke listener
+- Random number 0-9 akan otomatis dikalikan 10, menghasilkan 0, 10, 20, 30, 40, 50, 60, 70, 80, 90
+
+**Kesimpulan**: StreamTransformer memungkinkan kita memodifikasi data stream secara otomatis sebelum diterima listener, tanpa mengubah logika pengiriman atau penerimaan data.
+
+![praktikum3](img/Praktikum3.gif) 
 
 
