@@ -383,6 +383,47 @@ body: StreamBuilder(
 
 ![praktikum6](img/Praktikum6.gif)
 
+## Praktikum 7
+### Soal 13: Jelaskan maksud praktikum ini ! Dimanakah letak konsep pola BLoC-nya ? Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+**Jawaban:**
+
+**Maksud Praktikum:**
+Praktikum 7 mengimplementasikan **BLoC (Business Logic Component) pattern** untuk memisahkan business logic dari UI layer. User dapat generate random number dengan menekan tombol, dan hasilnya ditampilkan secara reactive menggunakan Stream.
+
+**Letak Konsep Pola BLoC:**
+
+1. **RandomNumberBloc Class** (`random_bloc.dart`):
+   - **Input Sink**: `generateRandom` - menerima event dari UI (button click)
+   - **Output Stream**: `randomNumber` - mengirim data ke UI
+   - **Business Logic**: Constructor yang listen input stream dan generate random number
+   - **Resource Management**: Method `dispose()` untuk cleanup
+
+2. **Separation of Concerns**:
+   - **UI Layer** (`random_screen.dart`): Hanya bertanggung jawab tampilan, tidak ada business logic
+   - **BLoC Layer** (`random_bloc.dart`): Mengandung semua business logic untuk generate random number
+   - **Communication**: Via Stream dan Sink, tidak langsung setState()
+
+3. **Komponen BLoC Pattern**:
+   ```dart
+   // Input (Event) via Sink
+   Sink<void> get generateRandom => _generateRandomController.sink;
+   
+   // Output (State) via Stream  
+   Stream<int> get randomNumber => _randomNumberController.stream;
+   
+   // Business Logic di Constructor
+   RandomNumberBloc() {
+     _generateRandomController.stream.listen((_) {
+       final random = Random().nextInt(10);
+       _randomNumberController.sink.add(random);
+     });
+   }
+   ```
+
+![praktikum7](img/Praktikum7.gif)
+
+
 
 
 
