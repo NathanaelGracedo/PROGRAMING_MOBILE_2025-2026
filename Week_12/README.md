@@ -327,3 +327,63 @@ Setiap angka muncul **dua kali** karena:
 
 ![praktikum5](img/Praktikum5.gif)
 
+## Praktikum 6
+### Soal 12: Jelaskan maksud kode pada langkah 3 dan 7 ! Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+**Jawaban:**
+
+**Langkah 3 - Buat method getNumbers():**
+```dart
+Stream<int> getNumbers() async* {
+  yield* Stream.periodic(const Duration(seconds: 1), (int t) {
+    Random random = Random();
+    int myNum = random.nextInt(10);
+    return myNum;
+  });
+}
+```
+**Maksud:**
+- Membuat stream generator dengan `async*` yang menghasilkan `Stream<int>`
+- `Stream.periodic` emit data setiap 1 detik secara otomatis
+- Setiap emit, generate random number 0-9
+- `yield*` meneruskan semua nilai dari `Stream.periodic` ke stream `getNumbers()`
+- Stream berjalan infinite tanpa perlu manual trigger seperti button click
+
+**Langkah 7 - Tambah StreamBuilder:**
+```dart
+body: StreamBuilder(
+  stream: numberStream,
+  initialData: 0,
+  builder: (context, snapshot) {
+    if (snapshot.hasError) {
+      print('Error!');
+    }
+    if (snapshot.hasData) {
+      return Center(
+        child: Text(
+          snapshot.data.toString(),
+          style: const TextStyle(fontSize: 96),
+        ),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
+  },
+)
+```
+**Maksud:**
+- **StreamBuilder**: Widget yang otomatis rebuild saat stream emit data baru
+- **stream**: numberStream - sumber data yang akan di-listen
+- **initialData**: 0 - nilai awal sebelum stream emit data pertama
+- **builder**: Function yang dipanggil setiap kali ada perubahan state
+  - `snapshot.hasError` → Cek error, print 'Error!'
+  - `snapshot.hasData` → Tampilkan data dengan fontSize 96
+  - Else → Tampilkan widget kosong
+- **Keuntungan**: Tidak perlu `setState()` manual, UI auto-update saat stream emit data
+
+![praktikum6](img/Praktikum6.gif)
+
+
+
+
+
