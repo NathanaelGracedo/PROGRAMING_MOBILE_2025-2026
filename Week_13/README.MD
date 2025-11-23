@@ -159,3 +159,8 @@ Ketika aplikasi dijalankan dan tombol "Read File" ditekan:
 4. Hasilnya adalah teks 'Nathanael Juan Gracedo - 2341720217' akan muncul di layar
 
 ![Prak6](img/Prak6.mp4)
+
+## Praktikum 7
+### Soal 9: Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Praktikum7](img/Prak7.mp4)
