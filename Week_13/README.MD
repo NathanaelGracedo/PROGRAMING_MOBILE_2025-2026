@@ -113,3 +113,13 @@ class Pizza {
   }
 }
 ~~~
+
+## Praktikum 4
+### Langkah 1-12
+
+![Praktikum4](img/Prak4.jpg)
+
+### Langkah 13-14 Soal 6: Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Praktikum4](img/Prak4.2.mp4)
+
