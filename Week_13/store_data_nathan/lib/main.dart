@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './model/pizza.dart';
 
@@ -32,11 +33,14 @@ class _MyHomePageState extends State<MyHomePage> {
   String pizzaString = '';
   List<Pizza> myPizzas = [];
   int appCounter = 0;
+  String documentsPath = '';
+  String tempPath = '';
 
   @override
   void initState() {
     super.initState();
     readAndWritePreference();
+    getPaths();
     readJsonFile().then((value) {
       setState(() {
         myPizzas = value;
@@ -84,29 +88,30 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future getPaths() async {
+    final docDir = await getApplicationDocumentsDirectory();
+    final tempDir = await getTemporaryDirectory();
+    setState(() {
+      documentsPath = docDir.path;
+      tempPath = tempDir.path;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Back End Interaction - Nathan',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text('You have opened the app $appCounter times.'),
-            ElevatedButton(
-              onPressed: () {
-                deletePreference();
-              },
-              child: Text('Reset counter'),
-            ),
-          ],
-        ),
+          'Path Provider - Nathan',
+          style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.blue,
+          ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('Doc path: $documentsPath'),
+          Text('Temp path: $tempPath'),
+        ],
       ),
     );
   }
