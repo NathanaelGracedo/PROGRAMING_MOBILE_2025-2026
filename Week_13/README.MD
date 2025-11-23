@@ -123,3 +123,39 @@ class Pizza {
 
 ![Praktikum4](img/Prak4.2.mp4)
 
+## Praktikum 5
+### Soal 7: Capture hasil praktikum Anda dan lampirkan di README.
+
+![Praktikum5](img/Prak5.jpg)
+
+## Praktikum 6
+### Soal 8: Jelaskan maksud kode pada langkah 3 dan 7 ! Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+**Penjelasan Langkah 3 - Method writeFile():**
+
+Method `writeFile()` adalah fungsi asinkron yang bertugas menulis data ke file:
+- Menggunakan `myFile.writeAsString()` untuk menulis string 'Nathanael Juan Gracedo - 2341720217' ke file
+- Wrapped dalam `try-catch` untuk menangani error jika terjadi kegagalan saat menulis file
+- Mengembalikan `true` jika berhasil menulis file
+- Mengembalikan `false` jika terjadi error
+
+~~~Dart
+Future<bool> writeFile() async {
+  try {
+    await myFile.writeAsString('Nathanael Juan Gracedo - 2341720217');
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+~~~
+
+**Penjelasan Langkah 7 - Run Aplikasi:**
+
+Ketika aplikasi dijalankan dan tombol "Read File" ditekan:
+1. Method `readFile()` dipanggil yang membaca konten file menggunakan `myFile.readAsString()`
+2. Konten yang dibaca (hasil dari `writeFile()` sebelumnya) disimpan ke variabel `fileText`
+3. UI diperbarui dengan `setState()` sehingga teks yang dibaca dari file ditampilkan di layar
+4. Hasilnya adalah teks 'Nathanael Juan Gracedo - 2341720217' akan muncul di layar
+
+![Prak6](img/Prak6.mp4)

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,17 +36,16 @@ class _MyHomePageState extends State<MyHomePage> {
   int appCounter = 0;
   String documentsPath = '';
   String tempPath = '';
+  late File myFile;
+  String fileText = '';
 
   @override
   void initState() {
-    super.initState();
-    readAndWritePreference();
-    getPaths();
-    readJsonFile().then((value) {
-      setState(() {
-        myPizzas = value;
-      });
+    getPaths().then((_) {
+      myFile = File('$documentsPath/pizzas.txt');
+      writeFile();
     });
+    super.initState();
   }
 
   Future<List<Pizza>> readJsonFile() async {
@@ -97,20 +97,49 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<bool> writeFile() async {
+    try {
+      await myFile.writeAsString('Nathanael Juan Gracedo - 2341720217');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> readFile() async {
+    try {
+      // Read the file.
+      String fileContent = await myFile.readAsString();
+      setState(() {
+        fileText = fileContent;
+      });
+      return true;
+    } catch (e) {
+      // On error, return false.
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           'Path Provider - Nathan',
-          style: TextStyle(color: Colors.white)),
-          backgroundColor: Colors.blue,
-          ),
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text('Doc path: $documentsPath'),
           Text('Temp path: $tempPath'),
+          ElevatedButton(
+            child: const Text('Read File'),
+            onPressed: () => readFile(),
+          ),
+          Text(fileText),
         ],
       ),
     );
