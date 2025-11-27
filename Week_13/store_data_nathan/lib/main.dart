@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './model/pizza.dart';
 import './httphelper.dart';
+import './model/pizza_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -148,9 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text(
           'JSON - Nathanael Juan Gracedo',
           style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.blue,
-          ),
+        ),
+        backgroundColor: Colors.blue,
+      ),
       body: FutureBuilder(
         future: callPizzas(),
         builder: (BuildContext context, AsyncSnapshot<List<Pizza>> snapshot) {
@@ -166,12 +167,19 @@ class _MyHomePageState extends State<MyHomePage> {
               return ListTile(
                 title: Text(snapshot.data![position].pizzaName),
                 subtitle: Text(
-                  snapshot.data![position].description +
-                      ' - € ' +
-                      snapshot.data![position].price.toString(),
+                  '${snapshot.data![position].category} - ${snapshot.data![position].description}\n€ ${snapshot.data![position].price.toString()}',
                 ),
               );
             },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const PizzaDetailScreen()),
           );
         },
       ),
