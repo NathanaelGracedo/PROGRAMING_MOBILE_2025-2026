@@ -3,7 +3,13 @@ import 'package:store_data_nathan/model/pizza.dart';
 import 'package:store_data_nathan/httphelper.dart';
 
 class PizzaDetailScreen extends StatefulWidget {
-  const PizzaDetailScreen({super.key});
+  final Pizza pizza;
+  final bool isNew;
+  const PizzaDetailScreen({
+    super.key,
+    required this.pizza,
+    required this.isNew,
+  });
   @override
   State<PizzaDetailScreen> createState() => _PizzaDetailScreenState();
 }
@@ -18,6 +24,19 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
   String operationResult = '';
 
   @override
+  void initState() {
+    if (!widget.isNew) {
+      txtId.text = widget.pizza.id.toString();
+      txtName.text = widget.pizza.pizzaName;
+      txtDescription.text = widget.pizza.description;
+      txtPrice.text = widget.pizza.price.toString();
+      txtImageUrl.text = widget.pizza.imageUrl;
+      txtCategory.text = widget.pizza.category;
+    }
+    super.initState();
+  }
+
+  @override
   void dispose() {
     txtId.dispose();
     txtName.dispose();
@@ -28,7 +47,7 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
     super.dispose();
   }
 
-  Future postPizza() async {
+  Future savePizza() async {
     HttpHelper helper = HttpHelper();
     Pizza pizza = Pizza(
       id: int.tryParse(txtId.text) ?? 0,
@@ -38,7 +57,9 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
       imageUrl: txtImageUrl.text,
       category: txtCategory.text,
     );
-    String result = await helper.postPizza(pizza);
+    final result = await (widget.isNew
+        ? helper.postPizza(pizza)
+        : helper.putPizza(pizza));
     setState(() {
       operationResult = result;
     });
@@ -104,9 +125,9 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
               ),
               const SizedBox(height: 48),
               ElevatedButton(
-                child: const Text('Send Post'),
+                child: const Text('Save Pizza'),
                 onPressed: () {
-                  postPizza();
+                  savePizza();
                 },
               ),
             ],
