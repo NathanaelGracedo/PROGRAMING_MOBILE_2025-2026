@@ -108,3 +108,8 @@ class _PizzaDetailScreenState extends State<PizzaDetailScreen> {
 ### Soal 3: Ubah salah satu data dengan Nama dan NIM Anda, lalu perhatikan hasilnya di Wiremock.Capture hasil aplikasi Anda berupa GIF di README.
 
 ![Prak3](img/Prak3.gif)
+
+## Prak 4
+### Soal 4: Capture hasil aplikasi Anda berupa GIF di README
+
+![Prak4](img/Prak4.gif)
