@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './model/pizza.dart';
+import './httphelper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -134,42 +135,45 @@ class _MyHomePageState extends State<MyHomePage> {
     return secret;
   }
 
+  Future<List<Pizza>> callPizzas() async {
+    HttpHelper helper = HttpHelper();
+    List<Pizza> pizzas = await helper.getPizzaList();
+    return pizzas;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Secure Storage - Nathan',
+          'JSON - Nathanael Juan Gracedo',
           style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextField(controller: pwdController),
-              ElevatedButton(
-                child: const Text('Save Value'),
-                onPressed: () {
-                  writeToSecureStorage();
-                },
-              ),
-              ElevatedButton(
-                child: const Text('Read Value'),
-                onPressed: () {
-                  readFromSecureStorage().then((value) {
-                    setState(() {
-                      myPass = value;
-                    });
-                  });
-                },
-              ),
-              Text(myPass),
-            ],
           ),
-        ),
+          backgroundColor: Colors.blue,
+          ),
+      body: FutureBuilder(
+        future: callPizzas(),
+        builder: (BuildContext context, AsyncSnapshot<List<Pizza>> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          }
+          return ListView.builder(
+            itemCount: (snapshot.data == null) ? 0 : snapshot.data!.length,
+            itemBuilder: (BuildContext context, int position) {
+              return ListTile(
+                title: Text(snapshot.data![position].pizzaName),
+                subtitle: Text(
+                  snapshot.data![position].description +
+                      ' - € ' +
+                      snapshot.data![position].price.toString(),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }
